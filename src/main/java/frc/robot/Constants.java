@@ -17,4 +17,18 @@ public final class Constants {
     public static final int USB_DRIVECONTROLLER = 0;
     public static final int USB_AUXCONTROLLER = 1;
   }
+
+  public static class MotorControllers {
+    // Elevator (placeholder)
+    public static final int ID_ELEVATOR_LEFT = 46;
+    public static final int ID_ELEVATOR_RIGHT = 47;
+  }
+
+  public static class Elevator {
+    public static final int DIO_ELEV_TOP = 4;
+    public static final int DIO_ELEV_BOTTOM = 5;
+
+    public static final int SOL_BRAKE_ON = 2; 
+    public static final int SOL_BRAKE_OFF = 3;
+  }
 }
