@@ -36,7 +36,7 @@ public final class Constants {
   }
 
   public static class AlgaeHold {
-    public static final double CH_MOTOR_SPEED = 1;
-    public static final double CH_MOTOR_REVERSE_SPEED = -0.5;
+    public static final double HOLD_SPEED = 1;
+    public static final double RELEASE_SPEED = -0.5;
   }
 }

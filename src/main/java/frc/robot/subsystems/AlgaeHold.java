@@ -24,7 +24,7 @@ public class AlgaeHold extends SubsystemBase {
 
     algaeHoldConfig = new SparkMaxConfig();
     
-    algaeHoldConfig.inverted(false); //TODO unknown if set to true
+    algaeHoldConfig.inverted(false);
 
     algaeHoldMotor.configure(algaeHoldConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
   }

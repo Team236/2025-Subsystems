@@ -5,16 +5,17 @@
 package frc.robot.commands.AlgaeHold;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.AlgaeHold;
 
-public class AlgaeHold extends Command {
+public class ManualAlgaeHold extends Command {
   private AlgaeHold algaeHold;
   private double speed;
 
-  public AlgaeHold(AlgaeHold algaeHold, double speed) {
+  public ManualAlgaeHold(AlgaeHold algaeHold, double speed) {
     this.algaeHold = algaeHold;
     this.speed = speed;
     
-    addRequirements(this.algaeHold); //TODO still not sure why it is doing this, may be import related
+    addRequirements(this.algaeHold);
   }
 
   @Override
@@ -26,7 +27,9 @@ public class AlgaeHold extends Command {
   }
   
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    this.algaeHold.stopAlgaeHold();
+  }
 
   @Override
   public boolean isFinished() {
