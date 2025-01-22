@@ -56,6 +56,12 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
+
+    JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
+    JoystickButton y = new JoystickButton(driverController, Constants.XboxController.Y);
+
+    x.whileTrue(manualAlgaeHold);
+    y.whileTrue(manualAlgaeRelease);
   }
 
   public Command getAutonomousCommand() {

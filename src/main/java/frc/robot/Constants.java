@@ -24,7 +24,7 @@ public final class Constants {
     public static final int ID_ELEVATOR_RIGHT = 47;
 
     // Algae Hold (placeholder)
-    public static final int ID_ALGAE_HOLD = 0;
+    public static final int ID_ALGAE_HOLD = 49;
   }
 
   public static class Elevator {
@@ -36,8 +36,8 @@ public final class Constants {
   }
 
   public static class AlgaeHold {
-    public static final double HOLD_SPEED = 1;
-    public static final double RELEASE_SPEED = -0.5;
+    public static final double HOLD_SPEED = 0.1;
+    public static final double RELEASE_SPEED = -0.1;
   }
 
   public static class XboxController {
