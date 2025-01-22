@@ -60,7 +60,6 @@ public class Elevator extends SubsystemBase {
 
   public void stopElevator() {
     leftElevatorMotor.set(0);
-
     rightElevatorMotor.set(0);
   }
   public boolean isETopLimit() {
@@ -93,14 +92,14 @@ public class Elevator extends SubsystemBase {
   }
 
   // currently returns revolutions of encoders -- NOT CONVERTED TO IN.
-  public double getElevatorRevs(){
-    return (getElevLeftEncoder() + getElevRightEncoder()) / 2;
+  public double getElevatorHeight(){
+    return Constants.Elevator.ELEV_REV_TO_IN * ((getElevLeftEncoder() + getElevRightEncoder()) / 2);
   }
 
   // check if elevator is at "top" according to user definition
   public boolean isTop() {
     boolean eTop;
-    if (getElevatorRevs() >= Constants.Elevator.MAX_HEIGHT_REVS) {
+    if (getElevatorHeight() >= Constants.Elevator.MAX_HEIGHT) {
       eTop = true;
     } else {
       eTop = false;
