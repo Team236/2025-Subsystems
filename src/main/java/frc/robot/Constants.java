@@ -30,5 +30,7 @@ public final class Constants {
 
     public static final int SOL_BRAKE_ON = 2; 
     public static final int SOL_BRAKE_OFF = 3;
+
+    public static final double MAX_HEIGHT_REVS = 100; // placeholder
   }
 }
