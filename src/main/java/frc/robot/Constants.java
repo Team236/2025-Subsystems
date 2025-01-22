@@ -22,6 +22,9 @@ public final class Constants {
     // Elevator (placeholder)
     public static final int ID_ELEVATOR_LEFT = 46;
     public static final int ID_ELEVATOR_RIGHT = 47;
+
+    // Algae Hold (placeholder)
+    public static final int ID_ALGAE_HOLD = 0;
   }
 
   public static class Elevator {
@@ -30,5 +33,10 @@ public final class Constants {
 
     public static final int SOL_BRAKE_ON = 2; 
     public static final int SOL_BRAKE_OFF = 3;
+  }
+
+  public static class AlgaeHold {
+    public static final double CH_MOTOR_SPEED = 1;
+    public static final double CH_MOTOR_REVERSE_SPEED = -0.5;
   }
 }
