@@ -39,4 +39,13 @@ public final class Constants {
     public static final double HOLD_SPEED = 1;
     public static final double RELEASE_SPEED = -0.5;
   }
+
+  public static class XboxController {
+    public static final int A = 1;
+    public static final int B = 2;
+    public static final int X = 3;
+    public static final int Y = 4;
+    public static final int LB = 5;
+    public static final int RB = 6;
+  } 
 }
