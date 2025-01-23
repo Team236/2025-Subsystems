@@ -28,8 +28,8 @@ public final class Constants {
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;
 
-    public static final double ELEV_UP_SPEED = 0.6;
-    public static final double ELEV_DOWN_SPEED = -0.4;
+    public static final double ELEV_UP_SPEED = 0.1;
+    public static final double ELEV_DOWN_SPEED = -0.1;
 
     //placeholder conversion factors
     public static final double ELEV_REV_TO_IN = 0.32327;
