@@ -25,6 +25,9 @@ public final class Constants {
 
     // Algae Hold (placeholder)
     public static final int ID_ALGAE_HOLD = 49;
+
+    // Algae Pivot (placeholder)
+    public static final int ID_ALGAE_PIVOT = 1;
   }
 
   public static class Elevator {
@@ -38,6 +41,19 @@ public final class Constants {
   public static class AlgaeHold {
     public static final double HOLD_SPEED = 0.1;
     public static final double RELEASE_SPEED = -0.1;
+  }
+
+  public static class AlgaePivot {
+    public static final int DIO_EXT_LIMIT = 8;
+    public static final int DIO_RET_LIMIT = 9;
+    public static final double ENC_REVS_MAX = -74;
+    public static final double ENC_REVS_TEST1 = -30;
+    public static final double DOWN_SPEED = -0.2;
+    public static final double UP_SPEED = 0.4;
+    public static final double KP = 0.029;
+    public static final double KI = 0;
+    public static final double KD = 0;
+    public static final double KFF = 0;
   }
 
   public static class XboxController {
