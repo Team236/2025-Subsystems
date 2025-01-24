@@ -22,6 +22,14 @@ public final class Constants {
     // Elevator (placeholder)
     public static final int ID_ELEVATOR_LEFT = 46;
     public static final int ID_ELEVATOR_RIGHT = 47;
+    // CoralHold (placeholder)
+    public static final int ID_CORALMOTOR = 48;
+  }
+
+  public static class CoralHoldCon {
+    public static final int DIO_COUNTER = 12;
+    public static final double HOLD_SPEED = .1;
+    public static final double RELEASE_SPEED = -.1;
   }
 
   public static class Elevator {
@@ -31,4 +39,14 @@ public final class Constants {
     public static final int SOL_BRAKE_ON = 2; 
     public static final int SOL_BRAKE_OFF = 3;
   }
+
+  public static class XboxController {
+    public static final int A = 1;
+    public static final int B = 2;
+    public static final int X = 3;
+    public static final int Y = 4;
+    public static final int LB = 5;
+    public static final int RB = 6;
+  } 
+
 }

@@ -12,22 +12,21 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class CoralHold extends Command {
+public class CoralHold extends SubsystemBase {
   /** Creates a new CoralHold. */
+  
 
   private SparkMax coralMotor;
   private SparkMaxConfig coralConfig;
   public static Counter counter;
   public static boolean isCounterUnplugged = false;
 
+ 
   public CoralHold() {
-    // Use addRequirements() here to declare subsystem dependencies.
-
-    coralMotor = new SparkMax(Constants.MotorControllers.ID_CORALMOTOR, MotorType.kBrushless);
+    coralMotor = new SparkMax(Constants.MotorControllers.ID_CORALMOTOR , MotorType.kBrushless);
 
     coralConfig = new SparkMaxConfig();
     coralConfig.inverted(true);
@@ -36,7 +35,7 @@ public class CoralHold extends Command {
 
       try {
       counter = new Counter();
-      counter.setUpSource(Constants.CoralHold.DIO_COUNTER);
+      counter.setUpSource(Constants.CoralHoldCon.DIO_COUNTER);
       counter.reset();
     }
 
@@ -48,8 +47,7 @@ public class CoralHold extends Command {
     counter.reset(); //sets counter to zero
   }
 
-  @Override
-  public void initialize() {
+  public static void resetCount() {
     // automaticaly sets counter to 0 at start 
     counter.reset();
   }
@@ -58,15 +56,18 @@ public class CoralHold extends Command {
     coralMotor.set(speed);
   }
 
-
   public void coralStop () {
     coralMotor.set(0);
   }
 
-  public static int getCoralCount () {
-    // grabs number of coral (normaly 0 or 1)
+  public static int getCoralCount() {
     int count;
-    count = counter.get();
+    if (isCounterUnplugged) {
+      count = 0;
+      SmartDashboard.putBoolean("Intake counter unplugged:", isCounterUnplugged);
+    } else {
+      count =  counter.get();
+    }
     return count;
   }
 
@@ -80,20 +81,11 @@ public class CoralHold extends Command {
     }
     return spin;
   }
-
+  
   @Override
-  public void execute() {
+  public void periodic() {
+    // This method will be called once per scheduler run
     SmartDashboard.putNumber("Intake periodic count is:", getCoralCount());
    SmartDashboard.putBoolean("HasNote: ", counter.get()>0);
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
   }
 }
