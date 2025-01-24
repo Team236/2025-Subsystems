@@ -54,6 +54,7 @@ public final class Constants {
     public static final double KI = 0;
     public static final double KD = 0;
     public static final double KFF = 0;
+    public static final double ENC_CONVERSION_FACTOR = 1; //unnecessary for now but may make it easier to change values with real world units
   }
 
   public static class XboxController {
