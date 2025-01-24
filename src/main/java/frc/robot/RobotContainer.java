@@ -93,9 +93,9 @@ public class RobotContainer {
     upPov.whileTrue(manualUp);
     downPov.whileTrue(manualDown);
 
-    a.onTrue(PIDtoL1);
-    b.onTrue(PIDtoL2);
-    x.onTrue(PIDtoL3);
+    a.onTrue(PIDtoL1); // 6 in
+    b.onTrue(PIDtoL2); // 12 in
+    x.onTrue(PIDtoL3); // 18 in
   }
 
   public Command getAutonomousCommand() {

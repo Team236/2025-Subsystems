@@ -23,7 +23,7 @@ public class Elevator extends SubsystemBase {
 
   public RelativeEncoder leftElevEncoder, rightElevEncoder;
 
-  private DigitalInput topLimitSwitch, bottomLimitSwitch;
+  private DigitalInput elevatorTopLimit, elevatorBottomLimit;
   private boolean isTException, isBException;
 
   public Elevator() {
@@ -43,14 +43,14 @@ public class Elevator extends SubsystemBase {
     rightElevEncoder = rightElevatorMotor.getEncoder();
 
     try {
-      topLimitSwitch = new DigitalInput(Constants.Elevator.DIO_ELEV_TOP);
+      elevatorTopLimit = new DigitalInput(Constants.Elevator.DIO_ELEV_TOP);
     } catch (Exception e) {
       isTException = true;
       SmartDashboard.putBoolean("exception thrown for elev bottom limit: ", isTException);
     }
 
     try {
-      bottomLimitSwitch = new DigitalInput(Constants.Elevator.DIO_ELEV_BOTTOM);
+      elevatorBottomLimit = new DigitalInput(Constants.Elevator.DIO_ELEV_BOTTOM);
     } catch (Exception e) {
       isBException = true;
       SmartDashboard.putBoolean("exception thrown for elev bottom limit: ", isBException);
@@ -66,14 +66,14 @@ public class Elevator extends SubsystemBase {
     if (isTException) {
       return true;
     } else {
-      return topLimitSwitch.get();
+      return elevatorTopLimit.get();
     }
   }
   public boolean isEBotLimit() {
     if (isBException) {
       return true;
     } else {
-      return bottomLimitSwitch.get();
+      return elevatorBottomLimit.get();
     }
   }
 
