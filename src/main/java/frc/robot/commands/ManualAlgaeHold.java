@@ -30,7 +30,6 @@ public class ManualAlgaeHold extends Command {
   public void end(boolean interrupted) {
     this.algaeHold.stopAlgaeHold();
   }
-
   @Override
   public boolean isFinished() {
     return false;
