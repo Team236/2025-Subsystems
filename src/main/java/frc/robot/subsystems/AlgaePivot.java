@@ -107,6 +107,11 @@ public class AlgaePivot extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if (isRetLimit()) //may be extended limit
+    {
+      resetPivotEncoder();
+    }
+    
     SmartDashboard.putBoolean("Algae Pivot hit exterior limit", isExtLimit());
     SmartDashboard.putBoolean("Algae Pivot hit retract limit", isRetLimit());
     SmartDashboard.putBoolean("Algae Pivot is fully extended", isFullyExtended());
