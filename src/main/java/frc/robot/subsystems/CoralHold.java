@@ -31,6 +31,8 @@ public class CoralHold extends SubsystemBase {
     coralConfig = new SparkMaxConfig();
     coralConfig.inverted(true);
 
+    coralConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+
     coralMotor.configure(coralConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
 
       try {
