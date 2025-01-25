@@ -19,15 +19,22 @@ public final class Constants {
   }
 
   public static class MotorControllers {
-    
     public static final int SMART_CURRENT_LIMIT = 40;
-    
     // Elevator (placeholder)
     public static final int ID_ELEVATOR_LEFT = 46;
     public static final int ID_ELEVATOR_RIGHT = 47;
 
     // Algae Hold (placeholder)
     public static final int ID_ALGAE_HOLD = 49;
+    // CoralHold (placeholder)
+    public static final int ID_CORALMOTOR = 48;
+  }
+
+  public static class CoralHoldCon {
+    public static final int DIO_COUNTER = 12;
+    public static final double HOLD_SPEED = .1;
+    public static final double RELEASE_SPEED = -.1;
+    public static final double L4_RELEASE_SPEED = .1;
   }
 
   public static class Elevator {

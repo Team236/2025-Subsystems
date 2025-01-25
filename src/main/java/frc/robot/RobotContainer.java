@@ -16,6 +16,10 @@ import frc.robot.subsystems.AlgaeHold;
 import frc.robot.commands.Elevator.ManualUpDown;
 import frc.robot.commands.Elevator.PIDToHeight;
 import frc.robot.subsystems.Elevator;
+import frc.robot.commands.CoralHoldWithCounter;
+import frc.robot.commands.CoralManual;
+import frc.robot.commands.CoralReleaseWithCounter;
+import frc.robot.subsystems.CoralHold;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -27,27 +31,35 @@ public class RobotContainer {
   //CONTROLLERS
   XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
   XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
-
-  //Instance of each subsystem
+  
+  //SUBSYSTEMS
   private final AlgaeHold algaeHold = new AlgaeHold();
-
-  //Instance of each command
+  private final Elevator elevator = new Elevator();
+  private final CoralHold coralHold = new CoralHold();
+  
+  //COMMANDS
+  // algae hold
   private final ManualAlgaeHold manualAlgaeHold = new ManualAlgaeHold(algaeHold, Constants.AlgaeHold.HOLD_SPEED);
   private final ManualAlgaeHold manualAlgaeRelease = new ManualAlgaeHold(algaeHold, Constants.AlgaeHold.RELEASE_SPEED);
   
-  
-  //SUBSYSTEMS
-  private final Elevator elevator = new Elevator();
-
-  
-  
-  //COMMANDS
+  // elevator
   private final ManualUpDown manualUp = new ManualUpDown(elevator, Constants.Elevator.ELEV_UP_SPEED);
   private final ManualUpDown manualDown = new ManualUpDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
 
   private final PIDToHeight PIDtoL1 = new PIDToHeight(elevator, Constants.Elevator.L1_HEIGHT);
   private final PIDToHeight PIDtoL2 = new PIDToHeight(elevator, Constants.Elevator.L2_HEIGHT);
   private final PIDToHeight PIDtoL3 = new PIDToHeight(elevator, Constants.Elevator.L3_HEIGHT);
+
+  // coral hold
+  private final CoralManual manualCoralHold = new CoralManual(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
+  private final CoralManual manualCoralRelease = new CoralManual(coralHold, Constants.CoralHoldCon.RELEASE_SPEED);
+
+  private final CoralHoldWithCounter counterCoralHold = new CoralHoldWithCounter(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
+  private final CoralReleaseWithCounter counterCoralRelease = new CoralReleaseWithCounter(coralHold, Constants.CoralHoldCon.RELEASE_SPEED);
+
+    //level 4 release has a positive speed, not negative. the motor will spin in the same direction as if it is Hold
+  private final CoralReleaseWithCounter counterCoralReleaseL4 = new CoralReleaseWithCounter(coralHold, Constants.CoralHoldCon.L4_RELEASE_SPEED);
+  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -97,9 +109,9 @@ public class RobotContainer {
     POVButton leftPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.LEFT_ANGLE);
     POVButton rightPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
 
+    // ALL BUTTONS BELOW ARE PLACEHOLDER
 
-
-    // Elevator - zero manually before PID
+    // ELEVATOR - zero manually before PID
     upPov.whileTrue(manualUp);
     downPov.whileTrue(manualDown);
 
@@ -107,8 +119,20 @@ public class RobotContainer {
     b.onTrue(PIDtoL2); // 12 in
     x.onTrue(PIDtoL3); // 18 in
 
+    // ALGAE HOLD 
+
     x1.whileTrue(manualAlgaeHold);
     y1.whileTrue(manualAlgaeRelease);
+
+    // CORAL HOLD
+
+    rightPov.whileTrue(manualCoralHold);
+    leftPov.whileTrue(manualCoralRelease);
+    rb.whileTrue(counterCoralHold);
+    lb.whileTrue(counterCoralRelease);
+    lm.whileTrue(counterCoralReleaseL4);
+
+
   }
 
   public Command getAutonomousCommand() {
