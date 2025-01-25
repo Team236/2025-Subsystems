@@ -30,11 +30,17 @@ public class Elevator extends SubsystemBase {
     leftElevatorMotor = new SparkMax(Constants.MotorControllers.ID_ELEVATOR_LEFT, MotorType.kBrushless);
     rightElevatorMotor = new SparkMax(Constants.MotorControllers.ID_ELEVATOR_RIGHT, MotorType.kBrushless);
 
+   // leftElevatorMotor.configure(leftConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    //rightElevatorMotor.configure(rightConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+
     // configure motors
     leftConfig = new SparkMaxConfig();
     leftConfig.inverted(true);
+    leftConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+
     rightConfig = new SparkMaxConfig();
     rightConfig.inverted(false);
+    rightConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
 
     leftElevatorMotor.configure(leftConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
     rightElevatorMotor.configure(rightConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
