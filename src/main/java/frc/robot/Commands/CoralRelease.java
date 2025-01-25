@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CoralHold;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class CoralManual extends Command {
+public class CoralRelease extends Command {
   /** Creates a new Coral_Manual. */
 
   private CoralHold coralHold;
   private double speed;
 
-  public CoralManual(CoralHold coralHold, double speed) {
+  public CoralRelease(CoralHold coralHold, double speed) {
     this.speed = speed;
     this.coralHold = coralHold;
 
