@@ -19,6 +19,9 @@ public final class Constants {
   }
 
   public static class MotorControllers {
+    
+    public static final int SMART_CURRENT_LIMIT = 40;
+    
     // Elevator (placeholder)
     public static final int ID_ELEVATOR_LEFT = 46;
     public static final int ID_ELEVATOR_RIGHT = 47;
