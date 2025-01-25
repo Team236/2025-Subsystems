@@ -56,7 +56,7 @@ public class RobotContainer {
     // cancelling on release.
 
     JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
-    JoystickButton a = new JoystickButton(driverController, Constants.XboxController.Y);
+    JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
 
 
     x.whileTrue(manualCoralHold);
