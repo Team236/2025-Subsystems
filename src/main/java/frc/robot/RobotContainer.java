@@ -17,7 +17,8 @@ import frc.robot.commands.Elevator.ManualUpDown;
 import frc.robot.commands.Elevator.PIDToHeight;
 import frc.robot.subsystems.Elevator;
 import frc.robot.commands.CoralHoldWithCounter;
-import frc.robot.commands.CoralManual;
+import frc.robot.commands.CoralManualHold;
+import frc.robot.commands.CoralManualRelease;
 import frc.robot.commands.CoralReleaseWithCounter;
 import frc.robot.subsystems.CoralHold;
 
@@ -51,8 +52,8 @@ public class RobotContainer {
   private final PIDToHeight PIDtoL3 = new PIDToHeight(elevator, Constants.Elevator.L3_HEIGHT);
 
   // coral hold
-  private final CoralManual manualCoralHold = new CoralManual(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
-  private final CoralManual manualCoralRelease = new CoralManual(coralHold, Constants.CoralHoldCon.RELEASE_SPEED);
+  private final CoralManualHold manualCoralHold = new CoralManualHold(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
+  private final CoralManualRelease manualCoralRelease = new CoralManualRelease(coralHold, Constants.CoralHoldCon.RELEASE_SPEED);
 
   private final CoralHoldWithCounter counterCoralHold = new CoralHoldWithCounter(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
   private final CoralReleaseWithCounter counterCoralRelease = new CoralReleaseWithCounter(coralHold, Constants.CoralHoldCon.RELEASE_SPEED);
