@@ -21,8 +21,8 @@ public class CoralHold extends SubsystemBase {
 
   private SparkMax coralMotor;
   private SparkMaxConfig coralConfig;
-  public static Counter counter;
-  public static boolean isCounterUnplugged = false;
+  public Counter counter;
+  public boolean isCounterUnplugged = false;
 
  
   public CoralHold() {
@@ -49,7 +49,7 @@ public class CoralHold extends SubsystemBase {
     counter.reset(); //sets counter to zero
   }
 
-  public static void resetCount() {
+  public void resetCount() {
     // automaticaly sets counter to 0 at start 
     counter.reset();
   }
@@ -62,7 +62,7 @@ public class CoralHold extends SubsystemBase {
     coralMotor.set(0);
   }
 
-  public static int getCoralCount() {
+  public int getCoralCount() {
     int count;
     if (isCounterUnplugged) {
       count = 0;

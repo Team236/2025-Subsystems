@@ -10,7 +10,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.CoralHoldWithCounter;
 import frc.robot.commands.CoralManual;
+import frc.robot.commands.CoralReleaseWithCounter;
 import frc.robot.subsystems.CoralHold;
 
 /**
@@ -30,8 +32,14 @@ public class RobotContainer {
 
   private final CoralHold coralHold = new CoralHold();
 
-  private final CoralManual manualCoralHold = new CoralManual(coralHold, Constants.CoralHoldCon.C_HOLD_SPEED);
-  private final CoralManual manualCoralRelease = new CoralManual(coralHold, Constants.CoralHoldCon.C_RELEASE_SPEED);
+  private final CoralManual manualCoralHold = new CoralManual(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
+  private final CoralManual manualCoralRelease = new CoralManual(coralHold, Constants.CoralHoldCon.RELEASE_SPEED);
+
+  private final CoralHoldWithCounter counterCoralHold = new CoralHoldWithCounter(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
+  private final CoralReleaseWithCounter counterCoralRelease = new CoralReleaseWithCounter(coralHold, Constants.CoralHoldCon.RELEASE_SPEED);
+
+  //level 4 release has a positive speed, not negative. the motor will spin in the same direction as if it is Hold
+  private final CoralReleaseWithCounter counterCoralReleaseL4 = new CoralReleaseWithCounter(coralHold, Constants.CoralHoldCon.L4_RELEASE_SPEED);
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -57,10 +65,17 @@ public class RobotContainer {
 
     JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
     JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
+    JoystickButton rb = new JoystickButton(driverController, Constants.XboxController.RB);
+    JoystickButton lb = new JoystickButton(driverController, Constants.XboxController.LB);
+    JoystickButton lm = new JoystickButton(driverController, Constants.XboxController.LM);
 
 
     x.whileTrue(manualCoralHold);
     a.whileTrue(manualCoralRelease);
+    rb.whileTrue(counterCoralHold);
+    lb.whileTrue(counterCoralRelease);
+    lm.whileTrue(counterCoralReleaseL4);
+
 
   }
 

@@ -29,8 +29,9 @@ public final class Constants {
 
   public static class CoralHoldCon {
     public static final int DIO_COUNTER = 12;
-    public static final double C_HOLD_SPEED = .1;
-    public static final double C_RELEASE_SPEED = -.1;
+    public static final double HOLD_SPEED = .1;
+    public static final double RELEASE_SPEED = -.1;
+    public static final double L4_RELEASE_SPEED = .1;
   }
 
   public static class Elevator {
@@ -48,6 +49,7 @@ public final class Constants {
     public static final int Y = 4;
     public static final int LB = 5;
     public static final int RB = 6;
+    public static final int LM = 9;
   } 
 
 }

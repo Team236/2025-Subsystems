@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CoralHold;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class CoralManualWithCounter extends Command {
+public class CoralReleaseWithCounter extends Command {
   /** Creates a new Coral_Manual. */
 
   private CoralHold coralHold;
   private double speed;
 
-  public CoralManualWithCounter(CoralHold coralHold, double speed) {
+  public CoralReleaseWithCounter(CoralHold coralHold, double speed) {
     this.speed = speed;
     this.coralHold = coralHold;
 
@@ -27,22 +27,15 @@ public class CoralManualWithCounter extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    CoralHold.resetCount();
+    coralHold.resetCount();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (speed > 0) {
-      if (CoralHold.getCoralCount() > 0) {
-        coralHold.coralStop();
-      } else {
-        coralHold.setCoralSpeed(speed);
-      }
-    } else {
-      CoralHold.resetCount();
-      coralHold.setCoralSpeed(speed);
-    }
+    // set count to zero whenever releasing
+    coralHold.resetCount();
+    coralHold.setCoralSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
