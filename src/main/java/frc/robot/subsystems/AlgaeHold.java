@@ -23,12 +23,13 @@ public class AlgaeHold extends SubsystemBase {
     algaeHoldMotor = new SparkMax(Constants.MotorControllers.ID_ALGAE_HOLD, MotorType.kBrushless);
 
     algaeHoldConfig = new SparkMaxConfig();
-    
-    algaeHoldMotor.configure(algaeHoldConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-
+   
     algaeHoldConfig.inverted(false);
 
     algaeHoldConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+
+     
+    algaeHoldMotor.configure(algaeHoldConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
 
   }
 
