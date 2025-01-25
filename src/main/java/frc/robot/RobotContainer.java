@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AlgaeHold.ManualAlgaeHold;
 import frc.robot.subsystems.AlgaeHold;
-import frc.robot.commands.ManualUpDown;
-import frc.robot.commands.PIDToHeight;
+import frc.robot.commands.Elevator.ManualUpDown;
+import frc.robot.commands.Elevator.PIDToHeight;
 import frc.robot.subsystems.Elevator;
 
 /**
