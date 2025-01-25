@@ -110,7 +110,9 @@ public class RobotContainer {
     POVButton rightPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
 
     // ALL BUTTONS BELOW ARE PLACEHOLDER
+    // ALL BUTTONS BELOW ARE PLACEHOLDER
 
+    // ELEVATOR - zero manually before PID
     // ELEVATOR - zero manually before PID
     upPov.whileTrue(manualUp);
     downPov.whileTrue(manualDown);
@@ -118,6 +120,8 @@ public class RobotContainer {
     a.onTrue(PIDtoL1); // 6 in
     b.onTrue(PIDtoL2); // 12 in
     x.onTrue(PIDtoL3); // 18 in
+
+    // ALGAE HOLD 
 
     // ALGAE HOLD 
 
