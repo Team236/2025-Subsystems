@@ -30,8 +30,8 @@ public class RobotContainer {
 
   private final CoralHold coralHold = new CoralHold();
 
-  private final CoralManual manualCoralHold = new CoralManual(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
-  private final CoralManual manualCoralRelease = new CoralManual(coralHold, Constants.CoralHoldCon.RELEASE_SPEED);
+  private final CoralManual manualCoralHold = new CoralManual(coralHold, Constants.CoralHoldCon.C_HOLD_SPEED);
+  private final CoralManual manualCoralRelease = new CoralManual(coralHold, Constants.CoralHoldCon.C_RELEASE_SPEED);
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
