@@ -12,13 +12,13 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AlgaeHold.ManualAlgaeHold;
+import frc.robot.commands.CoralHold.CoralHoldWithCounter;
+import frc.robot.commands.CoralHold.CoralManualHold;
+import frc.robot.commands.CoralHold.CoralRelease;
 import frc.robot.subsystems.AlgaeHold;
 import frc.robot.commands.Elevator.ManualUpDown;
 import frc.robot.commands.Elevator.PIDToHeight;
 import frc.robot.subsystems.Elevator;
-import frc.robot.commands.CoralHoldWithCounter;
-import frc.robot.commands.CoralManualHold;
-import frc.robot.commands.CoralRelease;
 import frc.robot.subsystems.CoralHold;
 
 /**
@@ -109,9 +109,7 @@ public class RobotContainer {
     POVButton rightPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
 
     // ALL BUTTONS BELOW ARE PLACEHOLDER
-    // ALL BUTTONS BELOW ARE PLACEHOLDER
 
-    // ELEVATOR - zero manually before PID
     // ELEVATOR - zero manually before PID
     upPov.whileTrue(manualUp);
     downPov.whileTrue(manualDown);
@@ -119,8 +117,6 @@ public class RobotContainer {
     a.onTrue(PIDtoL1); // 6 in
     b.onTrue(PIDtoL2); // 12 in
     x.onTrue(PIDtoL3); // 18 in
-
-    // ALGAE HOLD 
 
     // ALGAE HOLD 
 
