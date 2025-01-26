@@ -21,21 +21,24 @@ import frc.robot.Constants;
 public class CoralHold extends SubsystemBase {
   /** Creates a new CoralHold. */
 
-  // // TALON SRX
-  // private TalonSRX coralMotor;
-  // private TalonSRXConfiguration coralConfig;
-  // private TalonSRXControlMode controlMode = TalonSRXControlMode.PercentOutput;
+  // TALON SRX
+  private TalonSRX coralMotor;
+  private TalonSRXConfiguration coralConfig;
+  private TalonSRXControlMode controlMode = TalonSRXControlMode.PercentOutput;
 
-  private SparkMax coralMotor;
-  private SparkMaxConfig coralConfig;
+  // // SPARK MAX
+  // private SparkMax coralMotor;
+  // private SparkMaxConfig coralConfig;
+
+
   public Counter counter;
   public boolean isCounterUnplugged = false;
 
  
   public CoralHold() {
-    // // TALON SRX
-    // coralMotor = new TalonSRX(Constants.MotorControllers.ID_CORALMOTOR);
-    // coralMotor.setInverted(true);
+    // TALON SRX
+    coralMotor = new TalonSRX(Constants.MotorControllers.ID_CORALMOTOR);
+    coralMotor.setInverted(true);
 
     // // 3 lines below may not be necessary
     // coralConfig = new TalonSRXConfiguration();
@@ -43,15 +46,15 @@ public class CoralHold extends SubsystemBase {
     // coralMotor.configAllSettings(coralConfig);
     
 
-    // SPARK MAX
-    coralMotor = new SparkMax(Constants.MotorControllers.ID_CORALMOTOR , MotorType.kBrushless);
+    // // SPARK MAX
+    // coralMotor = new SparkMax(Constants.MotorControllers.ID_CORALMOTOR , MotorType.kBrushless);
 
-    coralConfig = new SparkMaxConfig();
-    coralConfig.inverted(true);
+    // coralConfig = new SparkMaxConfig();
+    // coralConfig.inverted(true);
 
-    coralConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    // coralConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
 
-    coralMotor.configure(coralConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    // coralMotor.configure(coralConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
 
     try {
       counter = new Counter();
@@ -77,11 +80,11 @@ public class CoralHold extends SubsystemBase {
   }
 
   public void coralStop () {
-    // // TALON SRX
-    // coralMotor.set(controlMode, 0);
+    // TALON SRX
+    coralMotor.set(controlMode, 0);
 
-    // SPARK MAX
-    coralMotor.set(0);
+    // // SPARK MAX
+    // coralMotor.set(0);
   }
 
   public int getCoralCount() {
@@ -98,23 +101,23 @@ public class CoralHold extends SubsystemBase {
   public boolean isCoralSpinning() {
     boolean  spin;
     
-    // // TALON SRX
-    // if (Math.abs(coralMotor.getMotorOutputPercent()) > 0.1) {
-    //   spin = true;
-    // }
-    // else {
-    //   spin = false;
-    // }
-    // return spin;
-
-    // SPARK MAX
-    if (Math.abs(coralMotor.get()) >0.1) {
+    // TALON SRX
+    if (Math.abs(coralMotor.getMotorOutputPercent()) > 0.1) {
       spin = true;
     }
     else {
       spin = false;
     }
     return spin;
+
+    // // SPARK MAX
+    // if (Math.abs(coralMotor.get()) >0.1) {
+    //   spin = true;
+    // }
+    // else {
+    //   spin = false;
+    // }
+    // return spin;
   }
   
   @Override

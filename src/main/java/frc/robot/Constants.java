@@ -27,6 +27,11 @@ public final class Constants {
     // Algae Hold (placeholder)
     public static final int ID_ALGAE_HOLD = 49;
     // CoralHold (placeholder)
+
+    // Talon SRX (testing)
+    public static final int ID_CORALMOTORSRX = 14;
+
+    // SparkMax
     public static final int ID_CORALMOTOR = 48;
   }
 
