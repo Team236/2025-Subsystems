@@ -11,7 +11,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AlgaeHold.ManualAlgaeHold;
+import frc.robot.commands.AlgaePivot.ManualAlgaePivot;
+import frc.robot.commands.AlgaePivot.PIDAlgaePivot;
 import frc.robot.subsystems.AlgaeHold;
+import frc.robot.subsystems.AlgaePivot;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,10 +33,11 @@ public class RobotContainer {
 
   //Instance of each subsystem
   private final AlgaeHold algaeHold = new AlgaeHold();
+  private final AlgaePivot algaePivot = new AlgaePivot();
 
   //Instance of each command
-  private final ManualAlgaeHold manualAlgaeHold = new ManualAlgaeHold(algaeHold, Constants.AlgaeHold.HOLD_SPEED);
-  private final ManualAlgaeHold manualAlgaeRelease = new ManualAlgaeHold(algaeHold, Constants.AlgaeHold.RELEASE_SPEED);
+  private final ManualAlgaePivot manualAlgaePivot = new ManualAlgaePivot(algaePivot, Constants.AlgaeHold.HOLD_SPEED);
+  private final PIDAlgaePivot PIDAlgaePivot = new PIDAlgaePivot(algaePivot, Constants.AlgaeHold.RELEASE_SPEED);
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -60,8 +64,8 @@ public class RobotContainer {
     JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
     JoystickButton y = new JoystickButton(driverController, Constants.XboxController.Y);
 
-    x.whileTrue(manualAlgaeHold);
-    y.whileTrue(manualAlgaeRelease);
+    x.whileTrue(manualAlgaePivot);
+    y.whileTrue(PIDAlgaePivot);
   }
 
   public Command getAutonomousCommand() {

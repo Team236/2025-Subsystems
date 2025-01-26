@@ -27,7 +27,7 @@ public final class Constants {
     public static final int ID_ALGAE_HOLD = 49;
 
     // Algae Pivot (placeholder)
-    public static final int ID_ALGAE_PIVOT = 1;
+    public static final int ID_ALGAE_PIVOT = 50;
   }
 
   public static class Elevator {

@@ -4,7 +4,10 @@
 
 package frc.robot.commands.AlgaePivot;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.Constants;
 import frc.robot.subsystems.AlgaePivot;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -12,22 +15,30 @@ public class PIDAlgaePivot extends Command {
   /** Creates a new PIDAlgaePivot. */
   private AlgaePivot algaePivot;
   private double revs;
+  private final PIDController pidController;
+  private double kP = Constants.AlgaePivot.KP;
+  private double kI = Constants.AlgaePivot.KI;
+  private double kD = Constants.AlgaePivot.KD;
 
   public PIDAlgaePivot(AlgaePivot algaePivot, double revs) {
+    pidController = new PIDController(kP, kI, kD);
     this.algaePivot = algaePivot;
     this.revs = revs;
+
+    addRequirements(this.algaePivot);
+    pidController.setSetpoint(revs);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    pidController.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    algaePivot.setPosition(revs);
+    algaePivot.setAlgaePivotSpeed(pidController.calculate(algaePivot.getPivotEncoder()));
   }
 
   // Called once the command ends or is interrupted.
