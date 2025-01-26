@@ -11,7 +11,7 @@ import frc.robot.subsystems.CoralHold;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class CoralHoldWithCounter extends Command {
   /** Creates a new Coral_Manual. */
-
+  //test comment
   private CoralHold coralHold;
   private double speed;
 
