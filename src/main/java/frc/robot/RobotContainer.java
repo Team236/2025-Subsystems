@@ -38,9 +38,6 @@ public class RobotContainer {
   //Instance of each command
   private final ManualAlgaeHold manualAlgaeHold = new ManualAlgaeHold(algaeHold, Constants.AlgaeHold.HOLD_SPEED);
   private final ManualAlgaeHold manualAlgaeRelease = new ManualAlgaeHold(algaeHold, Constants.AlgaeHold.RELEASE_SPEED);
-  private final ManualAlgaePivot manualAlgaeExtend = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.UP_SPEED);
-  private final ManualAlgaePivot manualAlgaeRetract = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.DOWN_SPEED);
-  private final PIDAlgaePivot test1AlgaePosition = new PIDAlgaePivot(algaePivot, Constants.AlgaePivot.ENC_REVS_TEST1);
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -64,11 +61,13 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
 
-    JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
+    JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
+    JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B);
     JoystickButton y = new JoystickButton(driverController, Constants.XboxController.Y);
 
-    x.whileTrue(manualAlgaeHold);
-    y.whileTrue(manualAlgaeRelease);
+    a.whileTrue(manualAlgaePivotDown);
+    b.onTrue(PIDAlgaePivot1);
+    y.whileTrue(manualAlgaePivotUp);
   }
 
   public Command getAutonomousCommand() {
