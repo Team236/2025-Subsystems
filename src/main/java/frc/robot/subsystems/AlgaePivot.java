@@ -32,16 +32,18 @@ public class AlgaePivot extends SubsystemBase {
 
   public AlgaePivot() {
     algaePivotMotor = new SparkMax(Constants.MotorControllers.ID_ALGAE_PIVOT, MotorType.kBrushless);
-
     algaePivotEncoder = algaePivotMotor.getEncoder();
-    //algaeClosedLoopController = algaePivotMotor.getClosedLoopController();
+    //algaeClosedLoopController = algaePivotMotor.getClosedLoopController();  //Not using SparkMax internal PID
 
     algaePivotConfig = new SparkMaxConfig();
 
     algaePivotConfig.inverted(false);
     algaePivotConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-    algaePivotMotor.configure(algaePivotConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
 
+    //Must do things like invert and set current limits BEFORE callling the motor.configure class below
+    algaePivotMotor.configure(algaePivotConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    
+    //Not using SparkMax internal PID,so not using lines below
     //algaePivotConfig.closedLoop.pidf(Constants.AlgaePivot.KP, Constants.AlgaePivot.KI, Constants.AlgaePivot.KD, Constants.AlgaePivot.KFF);
     //algaePivotConfig.encoder.positionConversionFactor(Constants.AlgaePivot.ENC_CONVERSION_FACTOR);
 
@@ -53,14 +55,14 @@ public class AlgaePivot extends SubsystemBase {
     } catch (Exception e)
     {
       isPivotExtException = true;
-      SmartDashboard.putBoolean("Algae Exterior Digital Input threw an exception", true);
+      SmartDashboard.putBoolean("Algae Extend Limit switch threw an exception", true);
     }
     try {
       algaeRetLimit = new DigitalInput(Constants.AlgaePivot.DIO_RET_LIMIT);
     } catch (Exception e)
     {
       isPivotRetException = true;
-      SmartDashboard.putBoolean("Algae Retracted Digital Input threw an exception", true);
+      SmartDashboard.putBoolean("Algae Retract Limit Switch threw an exception", true);
     }
   }
 
@@ -69,35 +71,35 @@ public class AlgaePivot extends SubsystemBase {
   //  algaeClosedLoopController.setReference(revs, ControlType.kPosition);
   //}
 
-  public void setAlgaePivotSpeed(double speed)
-  {
-    if (getPivotSpeed() <= 0)
-    {
-      //Extending
-      if (isExtLimit() || isFullyExtended())
-      {
-        stopAlgaePivot();
-      } else
-      {
-        algaePivotMotor.set(speed);
-      }
-    } else {
-      //Retracting
-      if (isRetLimit())
-      {
-        stopAlgaePivot();
-        resetPivotEncoder();
-      } else
-      {
-        algaePivotMotor.set(speed);
-      }
-    }
-  }
-
-  public void stopAlgaePivot()
-  {
-    algaePivotMotor.set(0);
-  }
+  //public void setAlgaePivotSpeed(double speed)
+  //{
+  //  if (getPivotSpeed() <= 0)
+  //  {
+  //    //Extending
+  //    if (isExtLimit() || isFullyExtended())
+  //    {
+  //      stopAlgaePivot();
+  //    } else
+  //    {
+  //      algaePivotMotor.set(speed);
+  //    }
+  //  } else {
+  //    //Retracting
+  //    if (isRetLimit())
+  //    {
+  //      stopAlgaePivot();
+  //      resetPivotEncoder();
+  //    } else
+  //    {
+  //      algaePivotMotor.set(speed);
+  //    }
+  //  }
+  //}
+//
+  //public void stopAlgaePivot()
+  //{
+  //  algaePivotMotor.set(0);
+  //}
 
   public boolean isRetLimit()
   {
@@ -110,8 +112,7 @@ public class AlgaePivot extends SubsystemBase {
     }
   }
 
-  public boolean isExtLimit()
-  {
+  public boolean isExtLimit(){
     if (isPivotExtException)
     {
       return true;
@@ -119,6 +120,42 @@ public class AlgaePivot extends SubsystemBase {
     {
       return algaeExtLimit.get();
     }
+  }
+
+  public boolean isFullyExtended(){
+    return getPivotEncoder() <= Constants.AlgaePivot.ENC_REVS_MAX;
+  }
+
+  public void setAlgaePivotSpeed(double speed){ 
+    //******CHANGED getPivotSpeed() to speed in line below on 1/28/25 EDC  
+    if (speed <= 0){  //negative speed means extending
+      //Extending
+      if (isExtLimit() || isFullyExtended()){
+        stopAlgaePivot();
+      } else
+      {//setAlgaePivotSpeed(speed); //*****CHANGED TO LINE BELOW 1/28/25 EDC ******/
+        //CANNONT CALL THE METHOD NAME WITHIN THE METHOD
+        algaePivotMotor.set(speed);
+      }
+    } else 
+    {//Retracting
+      if (isRetLimit()){
+        stopAlgaePivot();
+        resetPivotEncoder();
+      } else{
+        //setAlgaePivotSpeed(speed); //*****CHANGED TO LINE BELOW 1/28/25 EDC ******/
+        //CANNONT CALL THE METHOD NAME WITHIN THE METHOD
+        algaePivotMotor.set(speed);
+      }
+    }
+    //**** EVEN THE BELOW LINE ALONE WOULD NOT WORK IN THIS METHOD
+    //***** SINCE IT IS STILL CALLING THE METHOD WITHIN THE METHOD
+    //setAlgaePivotSpeed(speed);
+  }
+
+  public void stopAlgaePivot()
+  {
+    algaePivotMotor.set(0);
   }
 
   public void resetPivotEncoder()
@@ -131,15 +168,17 @@ public class AlgaePivot extends SubsystemBase {
     return algaePivotEncoder.getPosition();
   }
 
-  public boolean isFullyExtended()
-  {
-    return getPivotEncoder() <= Constants.AlgaePivot.ENC_REVS_MAX;
-  }
-
   public double getPivotSpeed()
   {
     return algaePivotMotor.get();
   }
+
+    //public void setPosition(double revs)
+  //{
+  //  algaeClosedLoopController.setReference(revs, ControlType.kPosition);
+  //}
+
+
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("Algae Pivot hit extended limit", isExtLimit());

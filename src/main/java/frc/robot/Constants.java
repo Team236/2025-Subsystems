@@ -19,6 +19,8 @@ public final class Constants {
   }
 
   public static class MotorControllers {
+    public static final int SMART_CURRENT_LIMIT = 40;
+
     // Elevator (placeholder)
     public static final int ID_ELEVATOR_LEFT = 46;
     public static final int ID_ELEVATOR_RIGHT = 47;
@@ -28,7 +30,7 @@ public final class Constants {
 
     // Algae Pivot (placeholder)
     public static final int ID_ALGAE_PIVOT = 50;
-    public static final int SMART_CURRENT_LIMIT = 40;
+  
   }
 
   public static class Elevator {
@@ -50,8 +52,8 @@ public final class Constants {
     public static final double ENC_REVS_MAX = -74;
     public static final double ENC_REVS_TEST1 = -30;
     public static final double ENC_REVS_TEST2 = -52;
-    public static final double DOWN_SPEED = -0.1;
-    public static final double UP_SPEED = 0.1;
+    public static final double MAN_EXT_SPEED = -0.1;
+    public static final double MAN_RET_SPEED = 0.1;
     public static final double KP = 0.029;
     public static final double KI = 0;
     public static final double KD = 0;

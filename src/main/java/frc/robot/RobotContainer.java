@@ -31,19 +31,19 @@ public class RobotContainer {
   XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
   XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
 
-  //Instance of each subsystem
+  //Instance of each SUBSYSTEM
   private final AlgaeHold  algaeHold = new AlgaeHold();
   private final AlgaePivot algaePivot = new AlgaePivot();
 
-  //Instance of each command
+  //Instance of each COMMAND
   private final AlgaeGrab holdAlgae = new AlgaeGrab(algaeHold, Constants.AlgaeHold.HOLD_SPEED);
   private final AlgaeGrab releaseAlgae = new AlgaeGrab(algaeHold, Constants.AlgaeHold.RELEASE_SPEED);
 
-  private final ManualAlgaePivot pivotDownAlgae = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.DOWN_SPEED);
-  private final ManualAlgaePivot pivotUpAlgae = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.UP_SPEED);
+  private final ManualAlgaePivot pivotDownAlgae = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.MAN_EXT_SPEED);
+  private final ManualAlgaePivot pivotUpAlgae = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.MAN_RET_SPEED);
 
-  private final PIDAlgaePivot pivotTest1Algae = new PIDAlgaePivot(algaePivot, Constants.AlgaePivot.ENC_REVS_TEST1);
-  private final PIDAlgaePivot pivotTest2Algae = new PIDAlgaePivot(algaePivot, Constants.AlgaePivot.ENC_REVS_TEST2);
+  private final PIDAlgaePivot pidAlgaePivot1 = new PIDAlgaePivot(algaePivot, Constants.AlgaePivot.ENC_REVS_TEST1);
+  private final PIDAlgaePivot pidAlgaePivot2 = new PIDAlgaePivot(algaePivot, Constants.AlgaePivot.ENC_REVS_TEST2);
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -74,8 +74,8 @@ public class RobotContainer {
 
     a.whileTrue(pivotDownAlgae);
     b.whileTrue(pivotUpAlgae);
-    y.onTrue(pivotTest1Algae);
-    x.onTrue(pivotTest2Algae);
+    y.onTrue(pidAlgaePivot1);
+    x.onTrue(pidAlgaePivot2);
   }
 
   public Command getAutonomousCommand() {
