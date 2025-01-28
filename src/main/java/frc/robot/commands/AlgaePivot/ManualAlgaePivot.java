@@ -17,7 +17,7 @@ public class ManualAlgaePivot extends Command {
     this.algaePivot = algaePivot;
     this.speed = speed;
 
-    addRequirements(algaePivot);
+    addRequirements(this.algaePivot);
   }
 
   // Called when the command is initially scheduled.

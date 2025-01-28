@@ -79,7 +79,7 @@ public class AlgaePivot extends SubsystemBase {
         stopAlgaePivot();
       } else
       {
-        setAlgaePivotSpeed(speed);
+        algaePivotMotor.set(speed);
       }
     } else {
       //Retracting
@@ -89,10 +89,9 @@ public class AlgaePivot extends SubsystemBase {
         resetPivotEncoder();
       } else
       {
-        setAlgaePivotSpeed(speed);
+        algaePivotMotor.set(speed);
       }
     }
-    //setAlgaePivotSpeed(speed);
   }
 
   public void stopAlgaePivot()
