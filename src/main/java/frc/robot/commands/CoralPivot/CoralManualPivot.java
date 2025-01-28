@@ -18,12 +18,12 @@ public class CoralManualPivot extends Command {
     
 
   /** Creates a new CoralManualPivot. **/
-    public void CoralManualPivot(CoralPivot coralPivot, double coralPosition) {
+    public CoralManualPivot(CoralPivot coralPivot, double coralPosition) {
     this.coralPivot = coralPivot;
     this.coralPosition = coralPosition;
     coralSpeed = Constants.CoralHoldCon.HOLD_SPEED;
 
-    coralPID = new PIDController(Constants.CoralHoldCon.KpPivot, Constants.CoralHoldCon.KiPivot, Constants.CoralHoldCon.KdPivot);
+    coralPID = new PIDController(Constants.CoralHoldCon.Kp_CORALPIVOT, Constants.CoralHoldCon.Ki_CORALPIVOT, Constants.CoralHoldCon.Kd_CORALPIVOT);
     coralPID.setSetpoint(coralPosition);
     addRequirements(this.coralPivot);
   }
