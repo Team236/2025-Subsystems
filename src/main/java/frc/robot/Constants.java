@@ -28,6 +28,7 @@ public final class Constants {
 
     // Algae Pivot (placeholder)
     public static final int ID_ALGAE_PIVOT = 50;
+    public static final int SMART_CURRENT_LIMIT = 40;
   }
 
   public static class Elevator {

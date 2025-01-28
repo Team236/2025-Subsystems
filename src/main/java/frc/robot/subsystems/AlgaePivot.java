@@ -8,6 +8,8 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
@@ -25,7 +27,7 @@ public class AlgaePivot extends SubsystemBase {
 
   private RelativeEncoder algaePivotEncoder;
 
-  private SparkClosedLoopController algaeClosedLoopController;
+  //private SparkClosedLoopController algaeClosedLoopController;
 
   public AlgaePivot() {
     algaePivotMotor = new SparkMax(Constants.MotorControllers.ID_ALGAE_PIVOT, MotorType.kBrushless);
@@ -34,6 +36,11 @@ public class AlgaePivot extends SubsystemBase {
     //algaeClosedLoopController = algaePivotMotor.getClosedLoopController();
 
     algaePivotConfig = new SparkMaxConfig();
+
+    algaePivotConfig.inverted(false);
+    algaePivotConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    algaePivotMotor.configure(algaePivotConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+
     //algaePivotConfig.closedLoop.pidf(Constants.AlgaePivot.KP, Constants.AlgaePivot.KI, Constants.AlgaePivot.KD, Constants.AlgaePivot.KFF);
     //algaePivotConfig.encoder.positionConversionFactor(Constants.AlgaePivot.ENC_CONVERSION_FACTOR);
 
