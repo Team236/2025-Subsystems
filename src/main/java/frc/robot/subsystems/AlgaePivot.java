@@ -140,12 +140,11 @@ public class AlgaePivot extends SubsystemBase {
   {
     return algaePivotMotor.get();
   }
-
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("Algae Pivot hit extended limit", isExtLimit());
     SmartDashboard.putBoolean("Algae Pivot hit retracted limit", isRetLimit());
     SmartDashboard.putBoolean("Algae Pivot is fully extended", isFullyExtended());
-    SmartDashboard.putNumber("Algae Pivot encoder revolution units", getPivotEncoder());
+    SmartDashboard.putNumber("Algae Pivot encoder revolutions", getPivotEncoder());
   }
 }
