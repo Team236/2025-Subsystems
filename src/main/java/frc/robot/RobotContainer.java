@@ -31,16 +31,16 @@ public class RobotContainer {
   XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
   XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
 
-  //Instance of each subsystem
+  //Instance of each SUBSYSTEM
   private final AlgaeHold  algaeHold = new AlgaeHold();
   private final AlgaePivot algaePivot = new AlgaePivot();
 
-  //Instance of each command
+  //Instance of each COMMAND
   private final AlgaeGrab holdAlgae = new AlgaeGrab(algaeHold, Constants.AlgaeHold.HOLD_SPEED);
   private final AlgaeGrab releaseAlgae = new AlgaeGrab(algaeHold, Constants.AlgaeHold.RELEASE_SPEED);
 
-  private final ManualAlgaePivot pivotDownAlgae = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.DOWN_SPEED);
-  private final ManualAlgaePivot pivotUpAlgae = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.UP_SPEED);
+  private final ManualAlgaePivot pivotDownAlgae = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.MAN_EXT_SPEED);
+  private final ManualAlgaePivot pivotUpAlgae = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.MAN_RET_SPEED);
 
   private final PIDAlgaePivot pidAlgaePivot1 = new PIDAlgaePivot(algaePivot, Constants.AlgaePivot.ENC_REVS_TEST1);
   private final PIDAlgaePivot pidAlgaePivot2 = new PIDAlgaePivot(algaePivot, Constants.AlgaePivot.ENC_REVS_TEST2);
