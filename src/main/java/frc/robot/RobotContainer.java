@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.AlgaeHold.ManualAlgaeHold;
+import frc.robot.commands.AlgaeHold.AlgaeGrab;
 import frc.robot.commands.AlgaePivot.ManualAlgaePivot;
 import frc.robot.commands.AlgaePivot.PIDAlgaePivot;
 import frc.robot.subsystems.AlgaeHold;
@@ -32,12 +32,18 @@ public class RobotContainer {
   XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
 
   //Instance of each subsystem
-  private final AlgaeHold algaeHold = new AlgaeHold();
+  private final AlgaeHold  algaeHold = new AlgaeHold();
   private final AlgaePivot algaePivot = new AlgaePivot();
 
   //Instance of each command
-  private final ManualAlgaeHold manualAlgaeHold = new ManualAlgaeHold(algaeHold, Constants.AlgaeHold.HOLD_SPEED);
-  private final ManualAlgaeHold manualAlgaeRelease = new ManualAlgaeHold(algaeHold, Constants.AlgaeHold.RELEASE_SPEED);
+  private final AlgaeGrab holdAlgae = new AlgaeGrab(algaeHold, Constants.AlgaeHold.HOLD_SPEED);
+  private final AlgaeGrab releaseAlgae = new AlgaeGrab(algaeHold, Constants.AlgaeHold.RELEASE_SPEED);
+
+  private final ManualAlgaePivot pivotDownAlgae = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.DOWN_SPEED);
+  private final ManualAlgaePivot pivotUpAlgae = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.UP_SPEED);
+
+  private final PIDAlgaePivot pivotTest1Algae = new PIDAlgaePivot(algaePivot, Constants.AlgaePivot.ENC_REVS_TEST1);
+  private final PIDAlgaePivot pivotTest2Algae = new PIDAlgaePivot(algaePivot, Constants.AlgaePivot.ENC_REVS_TEST2);
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -64,10 +70,12 @@ public class RobotContainer {
     JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
     JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B);
     JoystickButton y = new JoystickButton(driverController, Constants.XboxController.Y);
+    JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
 
-    a.whileTrue(manualAlgaePivotDown);
-    b.onTrue(PIDAlgaePivot1);
-    y.whileTrue(manualAlgaePivotUp);
+    a.whileTrue(pivotDownAlgae);
+    b.whileTrue(pivotUpAlgae);
+    y.onTrue(pivotTest1Algae);
+    x.onTrue(pivotTest2Algae);
   }
 
   public Command getAutonomousCommand() {

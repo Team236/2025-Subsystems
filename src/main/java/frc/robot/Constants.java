@@ -48,13 +48,14 @@ public final class Constants {
     public static final int DIO_RET_LIMIT = 9;
     public static final double ENC_REVS_MAX = -74;
     public static final double ENC_REVS_TEST1 = -30;
+    public static final double ENC_REVS_TEST2 = -52;
     public static final double DOWN_SPEED = -0.1;
     public static final double UP_SPEED = 0.1;
     public static final double KP = 0.029;
     public static final double KI = 0;
     public static final double KD = 0;
     public static final double KFF = 0;
-    public static final double ENC_CONVERSION_FACTOR = 1; //unnecessary for now but may make it easier to change values with real world units
+    //public static final double ENC_CONVERSION_FACTOR = 1; //unnecessary for now but may make it easier to change values with real world units
   }
 
   public static class XboxController {

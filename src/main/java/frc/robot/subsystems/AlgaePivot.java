@@ -31,14 +31,14 @@ public class AlgaePivot extends SubsystemBase {
     algaePivotMotor = new SparkMax(Constants.MotorControllers.ID_ALGAE_PIVOT, MotorType.kBrushless);
 
     algaePivotEncoder = algaePivotMotor.getEncoder();
-    algaeClosedLoopController = algaePivotMotor.getClosedLoopController();
+    //algaeClosedLoopController = algaePivotMotor.getClosedLoopController();
 
     algaePivotConfig = new SparkMaxConfig();
-    algaePivotConfig.closedLoop.pidf(Constants.AlgaePivot.KP, Constants.AlgaePivot.KI, Constants.AlgaePivot.KD, Constants.AlgaePivot.KFF);
-    algaePivotConfig.encoder.positionConversionFactor(Constants.AlgaePivot.ENC_CONVERSION_FACTOR);
+    //algaePivotConfig.closedLoop.pidf(Constants.AlgaePivot.KP, Constants.AlgaePivot.KI, Constants.AlgaePivot.KD, Constants.AlgaePivot.KFF);
+    //algaePivotConfig.encoder.positionConversionFactor(Constants.AlgaePivot.ENC_CONVERSION_FACTOR);
 
-    SmartDashboard.setDefaultBoolean("Algae Exterior Digital Input threw an exception", false);
-    SmartDashboard.setDefaultBoolean("Algae Retracted Digital Input threw an exception", false);
+    //SmartDashboard.setDefaultBoolean("Algae Exterior Digital Input threw an exception", false);
+    //SmartDashboard.setDefaultBoolean("Algae Retracted Digital Input threw an exception", false);
 
     try {
       algaeExtLimit = new DigitalInput(Constants.AlgaePivot.DIO_EXT_LIMIT);
@@ -54,19 +54,33 @@ public class AlgaePivot extends SubsystemBase {
     }
   }
 
-  public void setPosition(double revs)
-  {
-    algaeClosedLoopController.setReference(revs, ControlType.kPosition);
-  }
+  //public void setPosition(double revs)
+  //{
+  //  algaeClosedLoopController.setReference(revs, ControlType.kPosition);
+  //}
 
   public void setAlgaePivotSpeed(double speed)
   {
-    if (isRetLimit() || isExtLimit())
+    if (getPivotSpeed() <= 0)
     {
-      stopAlgaePivot();
-    } else
-    {
-      algaePivotMotor.set(speed);
+      //Extending
+      if (isExtLimit() || isFullyExtended())
+      {
+        stopAlgaePivot();
+      } else
+      {
+        setAlgaePivotSpeed(speed);
+      }
+    } else {
+      //Retracting
+      if (isRetLimit())
+      {
+        stopAlgaePivot();
+        resetPivotEncoder();
+      } else
+      {
+        setAlgaePivotSpeed(speed);
+      }
     }
   }
 
@@ -112,8 +126,8 @@ public class AlgaePivot extends SubsystemBase {
       resetPivotEncoder();
     }
     
-    SmartDashboard.putBoolean("Algae Pivot hit exterior limit", isExtLimit());
-    SmartDashboard.putBoolean("Algae Pivot hit retract limit", isRetLimit());
+    SmartDashboard.putBoolean("Algae Pivot hit extended limit", isExtLimit());
+    SmartDashboard.putBoolean("Algae Pivot hit retracted limit", isRetLimit());
     SmartDashboard.putBoolean("Algae Pivot is fully extended", isFullyExtended());
     SmartDashboard.putNumber("Algae Pivot encoder revolution units", getPivotEncoder());
   }

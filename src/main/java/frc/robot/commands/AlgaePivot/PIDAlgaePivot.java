@@ -6,7 +6,6 @@ package frc.robot.commands.AlgaePivot;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.AlgaePivot;
 
@@ -14,7 +13,7 @@ import frc.robot.subsystems.AlgaePivot;
 public class PIDAlgaePivot extends Command {
   /** Creates a new PIDAlgaePivot. */
   private AlgaePivot algaePivot;
-  private double revs;
+  //private double revs;
   private final PIDController pidController;
   private double kP = Constants.AlgaePivot.KP;
   private double kI = Constants.AlgaePivot.KI;
@@ -23,9 +22,9 @@ public class PIDAlgaePivot extends Command {
   public PIDAlgaePivot(AlgaePivot algaePivot, double revs) {
     pidController = new PIDController(kP, kI, kD);
     this.algaePivot = algaePivot;
-    this.revs = revs;
 
     addRequirements(this.algaePivot);
+
     pidController.setSetpoint(revs);
   }
 

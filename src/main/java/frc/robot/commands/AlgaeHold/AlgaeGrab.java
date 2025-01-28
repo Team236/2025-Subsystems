@@ -7,11 +7,11 @@ package frc.robot.commands.AlgaeHold;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.AlgaeHold;
 
-public class ManualAlgaeHold extends Command {
+public class AlgaeGrab extends Command {
   private AlgaeHold algaeHold;
   private double speed;
 
-  public ManualAlgaeHold(AlgaeHold algaeHold, double speed) {
+  public AlgaeGrab(AlgaeHold algaeHold, double speed) {
     this.algaeHold = algaeHold;
     this.speed = speed;
     
