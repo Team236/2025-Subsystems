@@ -48,21 +48,21 @@ public class CoralPivot extends SubsystemBase {
     coralPivotConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     coralPivotEncoder = coralPivotMotor.getEncoder();
     try {
-      //  what does this do 
+      //  this tries to config the coral pivot motor, and if it fails, throws an error
        coralPivotMotor.configure(coralPivotConfig,SparkBase.ResetMode.kResetSafeParameters ,SparkBase.PersistMode.kPersistParameters);
       } catch (Exception e) {
         isCoralPivotExtException = true;
        SmartDashboard.putBoolean("exception thrown for Coral top limit: ", isCoralPivotExtException);
      }
     try {
-      //  what does this do 
+      //  This tries to make a new digital input, and if it fails, throws an error 
       CoralExtLimit = new DigitalInput(Constants.CoralHoldCon.DIO_CORAL_PIVOT_EXT_LIMIT);
     } catch (Exception e) {
        isCoralPivotExtException = true;
       SmartDashboard.putBoolean("exception thrown for Coral top limit: ", isCoralPivotExtException);
     }
     try {
-      //  what does this do 
+      //  This sets a bottom limit for the coral, and if it fails, throws an error
       CoralRetLimit = new DigitalInput(Constants.CoralHoldCon.DIO_CORAL_PIVOT_RET_LIMIT);
     } catch (Exception e) {
       isCoralPivotRetException = true;
