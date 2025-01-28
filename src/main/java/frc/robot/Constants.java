@@ -40,6 +40,19 @@ public final class Constants {
     public static final double HOLD_SPEED = .1;
     public static final double RELEASE_SPEED = -.1;
     public static final double L4_RELEASE_SPEED = .1;
+      
+    //placeholder PID values supporting PID for subsystem
+    public static final double Kp_CORALPIVOT = 0.002;   //TODO tune PID values
+    public static final double Ki_CORALPIVOT = 0;
+    public static final double Kd_CORALPIVOT = 0;
+
+    // target position values for PID
+    public static final double PIVOT_STOWED_POSITION=0; //TODO find actual encoder rotation values
+    public static final double PIVOT_LEVEL1_POSITION=5; //TODO find actual encoder rotation values
+    public static final double PIVOT_LEVEL2_POSITION=5; //TODO find actual encoder rotation values
+    public static final double PIVOT_LEVEL3_POSITION=5; //TODO find actual encoder rotation values
+    public static final double PIVOT_LEVEL4_POSITION=10; //TODO find actual encoder rotation values
+
   }
 
   public static class Elevator {
