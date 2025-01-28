@@ -4,20 +4,27 @@
 
 package frc.robot.commands.CoralPivot;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Elevator;
+import frc.robot.Constants;
+import frc.robot.subsystems.CoralPivot;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ManualMove extends Command {
+public class CoralManualPivot extends Command {
 
   private CoralPivot coralPivot;
-  private double coralSpeed;
+  private PIDController coralPID;
+  private double coralSpeed,coralPosition;
+    
 
-  /** Creates a new ManualMove. */
-  public ManualUpDown(CoralPivot coralPivot, double coralSpeed) {
+  /** Creates a new CoralManualPivot. **/
+    public void CoralManualPivot(CoralPivot coralPivot, double coralPosition) {
     this.coralPivot = coralPivot;
-    this.coralspeed = coralSpeed;
+    this.coralPosition = coralPosition;
+    coralSpeed = Constants.CoralHoldCon.HOLD_SPEED;
 
+    coralPID = new PIDController(Constants.CoralHoldCon.KpPivot, Constants.CoralHoldCon.KiPivot, Constants.CoralHoldCon.KdPivot);
+    coralPID.setSetpoint(coralPosition);
     addRequirements(this.coralPivot);
   }
 
@@ -32,13 +39,13 @@ public class ManualMove extends Command {
   public void execute() {
 
     //may need to use -speed?
-    elevator.setCoralPivotSpeed(coralSpeed);
+    coralPivot.setCoralPivotSpeed(coralSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    elevator.stopCoralPivot();
+    coralPivot.stopCoralPivot();
   }
 
   // Returns true when the command should end.
