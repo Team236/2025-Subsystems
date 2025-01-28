@@ -68,27 +68,28 @@ public class AlgaePivot extends SubsystemBase {
 
   public void setAlgaePivotSpeed(double speed)
   {
-    if (getPivotSpeed() <= 0)
-    {
-      //Extending
-      if (isExtLimit() || isFullyExtended())
-      {
-        stopAlgaePivot();
-      } else
-      {
-        setAlgaePivotSpeed(speed);
-      }
-    } else {
-      //Retracting
-      if (isRetLimit())
-      {
-        stopAlgaePivot();
-        resetPivotEncoder();
-      } else
-      {
-        setAlgaePivotSpeed(speed);
-      }
-    }
+    //if (getPivotSpeed() <= 0)
+    //{
+    //  //Extending
+    //  if (isExtLimit() || isFullyExtended())
+    //  {
+    //    stopAlgaePivot();
+    //  } else
+    //  {
+    //    setAlgaePivotSpeed(speed);
+    //  }
+    //} else {
+    //  //Retracting
+    //  if (isRetLimit())
+    //  {
+    //    stopAlgaePivot();
+    //    resetPivotEncoder();
+    //  } else
+    //  {
+    //    setAlgaePivotSpeed(speed);
+    //  }
+    //}
+    setAlgaePivotSpeed(speed);
   }
 
   public void stopAlgaePivot()
