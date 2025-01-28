@@ -24,6 +24,7 @@ public class AlgaePivot extends SubsystemBase {
   private SparkMaxConfig algaePivotConfig;
 
   private DigitalInput algaeExtLimit, algaeRetLimit;
+  private boolean isPivotExtException, isPivotRetException;
 
   private RelativeEncoder algaePivotEncoder;
 
@@ -51,12 +52,14 @@ public class AlgaePivot extends SubsystemBase {
       algaeExtLimit = new DigitalInput(Constants.AlgaePivot.DIO_EXT_LIMIT);
     } catch (Exception e)
     {
+      isPivotExtException = true;
       SmartDashboard.putBoolean("Algae Exterior Digital Input threw an exception", true);
     }
     try {
       algaeRetLimit = new DigitalInput(Constants.AlgaePivot.DIO_RET_LIMIT);
     } catch (Exception e)
     {
+      isPivotRetException = true;
       SmartDashboard.putBoolean("Algae Retracted Digital Input threw an exception", true);
     }
   }
@@ -68,28 +71,28 @@ public class AlgaePivot extends SubsystemBase {
 
   public void setAlgaePivotSpeed(double speed)
   {
-    //if (getPivotSpeed() <= 0)
-    //{
-    //  //Extending
-    //  if (isExtLimit() || isFullyExtended())
-    //  {
-    //    stopAlgaePivot();
-    //  } else
-    //  {
-    //    setAlgaePivotSpeed(speed);
-    //  }
-    //} else {
-    //  //Retracting
-    //  if (isRetLimit())
-    //  {
-    //    stopAlgaePivot();
-    //    resetPivotEncoder();
-    //  } else
-    //  {
-    //    setAlgaePivotSpeed(speed);
-    //  }
-    //}
-    setAlgaePivotSpeed(speed);
+    if (getPivotSpeed() <= 0)
+    {
+      //Extending
+      if (isExtLimit() || isFullyExtended())
+      {
+        stopAlgaePivot();
+      } else
+      {
+        setAlgaePivotSpeed(speed);
+      }
+    } else {
+      //Retracting
+      if (isRetLimit())
+      {
+        stopAlgaePivot();
+        resetPivotEncoder();
+      } else
+      {
+        setAlgaePivotSpeed(speed);
+      }
+    }
+    //setAlgaePivotSpeed(speed);
   }
 
   public void stopAlgaePivot()
@@ -99,12 +102,24 @@ public class AlgaePivot extends SubsystemBase {
 
   public boolean isRetLimit()
   {
-    return algaeRetLimit.get();
+    if (isPivotRetException)
+    {
+      return true;
+    } else
+    {
+      return algaeRetLimit.get();
+    }
   }
 
   public boolean isExtLimit()
   {
-    return algaeExtLimit.get();
+    if (isPivotExtException)
+    {
+      return true;
+    } else
+    {
+      return algaeExtLimit.get();
+    }
   }
 
   public void resetPivotEncoder()
@@ -129,11 +144,6 @@ public class AlgaePivot extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if (isRetLimit()) //may be extended limit
-    {
-      resetPivotEncoder();
-    }
-    
     SmartDashboard.putBoolean("Algae Pivot hit extended limit", isExtLimit());
     SmartDashboard.putBoolean("Algae Pivot hit retracted limit", isRetLimit());
     SmartDashboard.putBoolean("Algae Pivot is fully extended", isFullyExtended());
