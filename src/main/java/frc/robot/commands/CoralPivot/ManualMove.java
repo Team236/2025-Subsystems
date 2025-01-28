@@ -14,7 +14,7 @@ public class ManualMove extends Command {
   private double coralSpeed;
 
   /** Creates a new ManualMove. */
-  public ManualUpDown(CoralPivot coralPivot, double coralSpeed) {
+  public ManualMove(CoralPivot coralPivot, double coralSpeed) {
     this.coralPivot = coralPivot;
     this.coralspeed = coralSpeed;
 
