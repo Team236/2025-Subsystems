@@ -52,6 +52,7 @@ public final class Constants {
     public static final double PIVOT_LEVEL2_POSITION=5; //TODO find actual encoder rotation values
     public static final double PIVOT_LEVEL3_POSITION=5; //TODO find actual encoder rotation values
     public static final double PIVOT_LEVEL4_POSITION=10; //TODO find actual encoder rotation values
+    public static final int PIVOT_MOTOR = 0;
 
   }
 

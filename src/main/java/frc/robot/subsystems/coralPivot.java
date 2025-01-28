@@ -4,11 +4,11 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.SparkMax;
 import com.revrobotics.RelativeEncoder;
-//import com.revrobotics.SparkPIDController;
-//import com.revrobotics.SparkBase.ControlType;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,10 +20,12 @@ import frc.robot.Constants;
 //if you see a 'tilt' varible, it is old code
 //if you see a 'coral' variable, it is new code
 //TODO make tilt varibles into coral varibles
+//TODO verify this is brushed or brushless motor 
 
 public class CoralPivot extends SubsystemBase {
-    private SpasrkMaxConfig coralPivotConfig;
+  
   private SparkMax coralPivotMotor;
+  private SparkBaseConfig coralPivotConfig;
   private RelativeEncoder coralPivotEncoder;
   //this is copied from the 2024 code, this may not be relevant
   //SWITCHED TO WPILib PID, not SPARKMAX PID
@@ -34,12 +36,14 @@ public class CoralPivot extends SubsystemBase {
 
     /** Creates a new CoralPivot. */
     public CoralPivot() {
-    coralPivotMotor = new SparkMax(Constants.MotorControllers.ID_CARTRIDGE_TILT, MotorType.kBrushless);
+    coralPivotMotor = new SparkMax(Constants.CoralHoldCon.PIVOT_MOTOR, MotorType.kBrushless);
 
-    coralPivotMotor.restoreFactoryDefaults();
-    coralPivotMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-    coralPivotMotor.setInverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
+    // coralPivotMotor.restoreFactoryDefaults();
+    
+    coralPivotConfig.inverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
+    coralPivotConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     coralPivotEncoder = coralPivotMotor.getEncoder();
+    coralPivotMotor.configure(Constants.MotorControllers.SMART_CURRENT_LIMIT,true,false);
    // tiltPIDController = tiltMotor.getPIDController();
     }
 
