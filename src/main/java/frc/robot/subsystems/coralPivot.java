@@ -4,9 +4,14 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.swerve.SwerveModuleConstants.ClosedLoopOutputType;
 import com.revrobotics.RelativeEncoder;
+
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
@@ -32,41 +37,47 @@ public class CoralPivot extends SubsystemBase {
   //private SparkPIDController tiltPIDController;
   private boolean isCoralPivotExtException, isCoralPivotRetException;
   private DigitalInput CoralExtLimit, CoralRetLimit;
+  private SparkClosedLoopController coralPivotPIDController;
 
 
     /** Creates a new CoralPivot. */
     public CoralPivot() {
     coralPivotMotor = new SparkMax(Constants.CoralHoldCon.PIVOT_MOTOR, MotorType.kBrushless);
-
-    // coralPivotMotor.restoreFactoryDefaults();
-    
+            
     coralPivotConfig.inverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
     coralPivotConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     coralPivotEncoder = coralPivotMotor.getEncoder();
-    coralPivotMotor.configure(Constants.MotorControllers.SMART_CURRENT_LIMIT,true,false);
-   // tiltPIDController = tiltMotor.getPIDController();
-    }
-
     try {
-      CoralExtLimit = new DigitalInput(Constants.coralPivot.DIO_CORAL_PIVOT_EXT_LIMIT);
+      //  what does this do 
+       coralPivotMotor.configure(coralPivotConfig,SparkBase.ResetMode.kResetSafeParameters ,SparkBase.PersistMode.kPersistParameters);
+      } catch (Exception e) {
+        isCoralPivotExtException = true;
+       SmartDashboard.putBoolean("exception thrown for Coral top limit: ", isCoralPivotExtException);
+     }
+    try {
+      //  what does this do 
+      CoralExtLimit = new DigitalInput(Constants.CoralHoldCon.DIO_CORAL_PIVOT_EXT_LIMIT);
     } catch (Exception e) {
        isCoralPivotExtException = true;
       SmartDashboard.putBoolean("exception thrown for Coral top limit: ", isCoralPivotExtException);
     }
     try {
-      CoralRetLimit = new DigitalInput(Constants.coralPivot.DIO_CORAL_PIVOT_RET_LIMIT);
+      //  what does this do 
+      CoralRetLimit = new DigitalInput(Constants.CoralHoldCon.DIO_CORAL_PIVOT_RET_LIMIT);
     } catch (Exception e) {
       isCoralPivotRetException = true;
       SmartDashboard.putBoolean("exception thrown for Coral bottom limit: ", isCoralPivotRetException);
     }
-  } 
+    coralPivotPIDController = coralPivotMotor.getClosedLoopController();
+    //TODO set target and other PID values
+}
 // methods start here
 public double getCoralEncoder() {  //gives encoder reading in Revs
-  return coralEncoder.getPosition();
+  return coralPivotEncoder.getPosition();
 }
 
 public void resetCoralEncoder() {
-  coralEncoder.setPosition(0);
+  coralPivotEncoder.setPosition(0);
 }
 
 public void stopCoralPivot() {
@@ -90,7 +101,7 @@ if (isCoralPivotRetException) {
 }
 public boolean isFullyExtended() {
   boolean aFullExtend;
-  if (getCoralEncoder() <= Constants.coralPivot.CORAL_ENC_REVS_MAX) {  //WAS >=
+  if (getCoralEncoder() <= Constants.CoralHoldCon.CORAL_ENC_REVS_MAX) {  //WAS >=
     aFullExtend = true;
   } else {
     aFullExtend = false;      }
