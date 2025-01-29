@@ -52,8 +52,8 @@ public class RobotContainer {
   private final PIDToHeight PIDtoL3 = new PIDToHeight(elevator, Constants.Elevator.L3_HEIGHT);
 
 // coral pivot
-  private final ManualCoralPivot manualCoralPivotUp = new ManualMove(coralPivot, Constants.CoralPivot.CORAL_PIVOT_UP_SPEED);
-  private final ManualCoralPivot manualCoralPivotDown = new ManualMove(coralPivot, Constants.CoralPivot.CORAL_PIVOT_DOWN_SPEED);
+  private final ManualCoralPivot manualCoralPivotUp = new ManualCoralPivot(coralPivot, Constants.CoralPivot.CORAL_PIVOT_UP_SPEED);
+  private final ManualCoralPivot manualCoralPivotDown = new ManualCoralPivot(coralPivot, Constants.CoralPivot.CORAL_PIVOT_DOWN_SPEED);
 
   // coral hold
   private final CoralManualHold manualCoralHold = new CoralManualHold(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
@@ -131,7 +131,7 @@ public class RobotContainer {
 
     lb1.whileTrue(manualCoralPivotUp);
     rb1.whileTrue(manualCoralPivotDown);
-    
+
     // CORAL HOLD
   
     rightPov.whileTrue(manualCoralHold);

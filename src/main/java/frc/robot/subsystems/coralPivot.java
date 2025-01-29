@@ -47,13 +47,8 @@ public class CoralPivot extends SubsystemBase {
     coralPivotConfig.inverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
     coralPivotConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     coralPivotEncoder = coralPivotMotor.getEncoder();
-    try {
-      //  this tries to config the coral pivot motor, and if it fails, throws an error
-       coralPivotMotor.configure(coralPivotConfig,SparkBase.ResetMode.kResetSafeParameters ,SparkBase.PersistMode.kPersistParameters);
-      } catch (Exception e) {
-        isCoralPivotExtException = true;
-       SmartDashboard.putBoolean("exception thrown for Coral top limit: ", isCoralPivotExtException);
-     }
+    coralPivotMotor.configure(coralPivotConfig,SparkBase.ResetMode.kResetSafeParameters ,SparkBase.PersistMode.kPersistParameters);
+    
     try {
       //  This tries to make a new digital input, and if it fails, throws an error 
       CoralExtLimit = new DigitalInput(Constants.CoralPivot.DIO_CORAL_PIVOT_EXT_LIMIT);
@@ -130,7 +125,7 @@ public void setCoralPivotSpeed(double speed) {
      }
 }
 
-public double getCoralTiltSpeed() {
+public double getCoralPivotSpeed() {
   return coralPivotMotor.get();
 }
 

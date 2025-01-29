@@ -13,19 +13,19 @@ import frc.robot.subsystems.CoralPivot;
 public class CoralManualPivot extends Command {
 
   private CoralPivot coralPivot;
-  private PIDController coralPID;
-  private double coralSpeed,coralPosition;
+  //private PIDController coralPID;
+  private double coralSpeed;
     
 
   /** Creates a new CoralManualPivot. **/
-    public CoralManualPivot(CoralPivot coralPivot, double coralPosition) {
+    public CoralManualPivot(CoralPivot coralPivot, double coralSpeed) {
     this.coralPivot = coralPivot;
-    this.coralPosition = coralPosition;
-    coralSpeed = Constants.CoralPivot.HOLD_SPEED;
+    this.coralSpeed = coralSpeed;
+  
 
-    coralPID = new PIDController(Constants.CoralPivot.Kp_CORALPIVOT, Constants.CoralPivot.Ki_CORALPIVOT, Constants.CoralPivot.Kd_CORALPIVOT);
-    coralPID.setSetpoint(coralPosition);
-    addRequirements(this.coralPivot);
+    //coralPID = new PIDController(Constants.CoralPivot.Kp_CORALPIVOT, Constants.CoralPivot.Ki_CORALPIVOT, Constants.CoralPivot.Kd_CORALPIVOT);
+    //coralPID.setSetpoint(coralPosition);
+   // addRequirements(this.coralPivot);
   }
 
   // Called when the command is initially scheduled.
