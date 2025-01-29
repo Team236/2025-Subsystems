@@ -75,7 +75,7 @@ public class CoralHold extends SubsystemBase {
 
   public boolean isCoralSpinning() {
     boolean spin;
-    if (Math.abs(coralMotor.get()) >0.1) {
+    if (Math.abs(coralMotor.get()) >0.08) {
       spin = true;
     }
     else {
@@ -88,6 +88,6 @@ public class CoralHold extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Intake periodic count is:", getCoralCount());
-   SmartDashboard.putBoolean("HasNote: ", counter.get()>0);
+   SmartDashboard.putBoolean("HasCoral: ", counter.get()>0);
   }
 }
