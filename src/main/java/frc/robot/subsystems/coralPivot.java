@@ -27,7 +27,7 @@ import frc.robot.Constants;
 //TODO make tilt varibles into coral varibles
 //TODO verify this is brushed or brushless motor 
 
-public class CoralPivot extends SubsystemBase {
+public class coralPivot extends SubsystemBase {
   
   private SparkMax coralPivotMotor;
   private SparkBaseConfig coralPivotConfig;
@@ -37,8 +37,8 @@ public class CoralPivot extends SubsystemBase {
  
 
     /** Creates a new CoralPivot. */
-    public CoralPivot() {
-    coralPivotMotor = new SparkMax(Constants.CoralPivot.CORALPIVOTMOTOR, MotorType.kBrushless);
+    public coralPivot() {
+    coralPivotMotor = new SparkMax(Constants.MotorControllers.ID_CORAL_PIVOT, MotorType.kBrushless);
     coralPivotEncoder = coralPivotMotor.getEncoder(); 
 
     coralPivotConfig.inverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
@@ -47,14 +47,14 @@ public class CoralPivot extends SubsystemBase {
         
     try {
       //  This tries to make a new digital input, and if it fails, throws an error 
-      CoralExtLimit = new DigitalInput(Constants.CoralPivot.DIO_CORAL_PIVOT_EXT_LIMIT);
+      CoralExtLimit = new DigitalInput(Constants.CoralPivot.DIO_EXT_LIMIT);
     } catch (Exception e) {
        isCoralPivotExtException = true;
       SmartDashboard.putBoolean("exception thrown for Coral Extend limit: ", isCoralPivotExtException);
     }
     try {
       //  This sets a bottom limit for the coral, and if it fails, throws an error
-      CoralRetLimit = new DigitalInput(Constants.CoralPivot.DIO_CORAL_PIVOT_RET_LIMIT);
+      CoralRetLimit = new DigitalInput(Constants.CoralPivot.DIO_RET_LIMIT);
     } catch (Exception e) {
       isCoralPivotRetException = true;
       SmartDashboard.putBoolean("exception thrown for Coral Retract limit: ", isCoralPivotRetException);
@@ -94,7 +94,7 @@ if (isCoralPivotRetException) {
 }
 
 public boolean isFullyExtended() {
-  return (getCoralEncoder() <= Constants.CoralPivot.CORAL_ENC_REVS_MAX);
+  return (getCoralEncoder() <= Constants.CoralPivot.ENC_REVS_MAX);
 }
 
 public void setCoralPivotSpeed(double speed) {

@@ -20,53 +20,25 @@ public final class Constants {
 
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
-    // Elevator (placeholder)
+
+    //Elevator (placeholder)
     public static final int ID_ELEVATOR_LEFT = 46;
     public static final int ID_ELEVATOR_RIGHT = 47;
 
-    // Algae Hold (placeholder)
+    //AlgaeHold (placeholder)
     public static final int ID_ALGAE_HOLD = 49;
-    // CoralHold (placeholder)
 
-    // Talon SRX (testing)
-    public static final int ID_CORALMOTORSRX = 14;
+   //CoralHold (placeholder)
+    // public static final int ID_CORAL_HOLD_MOTORSRX = 14; //IF USE TALON SRX
+    public static final int ID_CORAL_HOLD_MOTOR = 34;//BRUSHED SM MOTOR
 
-    // SparkMax
-    public static final int ID_CORALMOTOR = 48;
-    public static final int ID_CORALPIVOTMOTOR = 50;
+    //AlgaePivot (placeholder)
+    public static final int ID_ALGAE_PIVOT = 500;//Change to 50 when test algaehold
+
+     //CoralPivot (placeholder)
+     public static final int ID_CORAL_PIVOT = 50;
   }
 
-  public static class CoralHold {
-    public static final int DIO_COUNTER = 12;
-    public static final double HOLD_SPEED = .1;
-    public static final double RELEASE_SPEED = -.1;
-    public static final double L4_RELEASE_SPEED = .1;
-    public static final double CORAL_ENC_REVS_MAX = 0; //TODO find actual
-
-  }
-public static class CoralPivot {
-
-public static final int DIO_CORAL_PIVOT_RET_LIMIT = 0; //TODO find actual
-public static final int DIO_CORAL_PIVOT_EXT_LIMIT = 0; // TODO find actual
-public static final double CORAL_ENC_REVS_MAX = 0; // TODO find actual
-public static final double HOLD_SPEED = 0; // TODO find actual
-public static final double CORAL_PIVOT_UP_SPEED = .1; // find actual 
-public static final double CORAL_PIVOT_DOWN_SPEED = -.1;
-
-  // target position values for PID
-    public static final double PIVOT_STOWED_POSITION=0; //TODO find actual encoder rotation values
-    public static final double PIVOT_LEVEL1_POSITION=5; //TODO find actual encoder rotation values
-    public static final double PIVOT_LEVEL2_POSITION=5; //TODO find actual encoder rotation values
-    public static final double PIVOT_LEVEL3_POSITION=5; //TODO find actual encoder rotation values
-    public static final double PIVOT_LEVEL4_POSITION=10; //TODO find actual encoder rotation values
-
-  //placeholder PID values supporting PID for subsystem
-    public static final double Kp_CORALPIVOT = 0.002;   //TODO tune PID values
-    public static final double Ki_CORALPIVOT = 0;   
-    public static final double Kd_CORALPIVOT = 0;
-	  public static final int CORALPIVOTMOTOR = 41;
-
-}
   public static class Elevator {
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;
@@ -90,6 +62,45 @@ public static final double CORAL_PIVOT_DOWN_SPEED = -.1;
     public static final double KI_ELEV = 0;
     public static final double KD_ELEV = 0;
 
+  }
+
+public static class AlgaeHold {
+  public static final double HOLD_SPEED = 0.1;
+  public static final double RELEASE_SPEED = -0.1;
+}
+public static class CoralHold {
+  public static final int DIO_COUNTER = 12;
+  public static final double HOLD_SPEED = .1;
+  public static final double RELEASE_SPEED = -.1;
+  public static final double L4_RELEASE_SPEED = .1;
+}
+
+  public static class AlgaePivot {
+    public static final int DIO_EXT_LIMIT = 80; //change to 8 when test AlgaePivot
+    public static final int DIO_RET_LIMIT = 90; //change to 9 when test AlgaePivot
+    public static final double ENC_REVS_MAX = -74;
+    public static final double ENC_REVS_TEST1 = -30;
+    public static final double ENC_REVS_TEST2 = -52;
+    public static final double MAN_EXT_SPEED = -0.1;
+    public static final double MAN_RET_SPEED = 0.1;
+    public static final double KP = 0.029;
+    public static final double KI = 0;
+    public static final double KD = 0;
+    public static final double KFF = 0;
+  }
+  
+  public static class CoralPivot {
+    public static final int DIO_EXT_LIMIT = 8;
+    public static final int DIO_RET_LIMIT = 9;
+    public static final double ENC_REVS_MAX = -74;
+    public static final double ENC_REVS_TEST1 = -30;
+    public static final double ENC_REVS_TEST2 = -52;
+    public static final double MAN_EXT_SPEED = -0.1;
+    public static final double MAN_RET_SPEED = 0.1;
+    public static final double KP = 0.029;
+    public static final double KI = 0;
+    public static final double KD = 0;
+    public static final double KFF = 0;
   }
   
   public static class XboxController {
@@ -119,11 +130,6 @@ public static final double CORAL_PIVOT_DOWN_SPEED = -.1;
       public static final int DOWN_ANGLE = 180;
       public static final int LEFT_ANGLE = 270;
     }
-  }
 
-  public static class AlgaeHold {
-    public static final double HOLD_SPEED = 0.1;
-    public static final double RELEASE_SPEED = -0.1;
-  }
- 
+}
 }

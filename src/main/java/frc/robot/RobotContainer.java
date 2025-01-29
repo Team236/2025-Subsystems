@@ -11,17 +11,19 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.AlgaeHoldCommands.AlgaeGrab;
+import frc.robot.commands.AlgaePivotCommands.ManualAlgaePivot;
+import frc.robot.commands.AlgaePivotCommands.PIDAlgaePivot;
 import frc.robot.commands.CoralHoldCommands.CoralGrabWithCounter;
-import frc.robot.commands.AlgaeHoldCommands.ManualAlgaeHold;
 import frc.robot.commands.CoralHoldCommands.CoralGrab;
 import frc.robot.commands.CoralHoldCommands.CoralRelease;
-import frc.robot.commands.CoralPivotCommands.CoralManualPivot;
 import frc.robot.commands.ElevatorCommands.ManualUpDown;
 import frc.robot.commands.ElevatorCommands.PIDToHeight;
 import frc.robot.subsystems.AlgaeHold;
+import frc.robot.subsystems.AlgaePivot;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.CoralHold;
-import frc.robot.subsystems.CoralPivot;
+import frc.robot.subsystems.coralPivot;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,41 +32,50 @@ import frc.robot.subsystems.CoralPivot;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  //CONTROLLERS
+
+  //Controllers
   XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
   XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
-  
-  //SUBSYSTEMS
-  private final AlgaeHold algaeHold = new AlgaeHold();
+
+  //Subsystems
+  private final AlgaeHold  algaeHold = new AlgaeHold();
+  private final AlgaePivot algaePivot = new AlgaePivot();
   private final Elevator elevator = new Elevator();
   private final CoralHold coralHold = new CoralHold();
-  private final CoralPivot coralPivot = new CoralPivot();
+
+  //Commmands - Any pid commands put pid at the beginning, then put the subsystem, then put the action :)
+
+  //AlgaeHold
+  private final AlgaeGrab algaeGrabPull = new AlgaeGrab(algaeHold, Constants.AlgaeHold.HOLD_SPEED);
+  private final AlgaeGrab algaeGrabRelease = new AlgaeGrab(algaeHold, Constants.AlgaeHold.RELEASE_SPEED);
+
+  //AlgaePivot
+  private final ManualAlgaePivot algaePivotDown = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.MAN_EXT_SPEED);
+  private final ManualAlgaePivot algaePivotUp = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.MAN_RET_SPEED);
+
+  private final PIDAlgaePivot pidAlgaePivot1 = new PIDAlgaePivot(algaePivot, Constants.AlgaePivot.ENC_REVS_TEST1);
+  private final PIDAlgaePivot pidAlgaePivot2 = new PIDAlgaePivot(algaePivot, Constants.AlgaePivot.ENC_REVS_TEST2);
   
-  //COMMANDS
-  // algae hold
-  private final ManualAlgaeHold manualAlgaeHold = new ManualAlgaeHold(algaeHold, Constants.AlgaeHold.HOLD_SPEED);
-  private final ManualAlgaeHold manualAlgaeRelease = new ManualAlgaeHold(algaeHold, Constants.AlgaeHold.RELEASE_SPEED);
-  
-  // elevator
-  private final ManualUpDown manualUp = new ManualUpDown(elevator, Constants.Elevator.ELEV_UP_SPEED);
-  private final ManualUpDown manualDown = new ManualUpDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
+  //Elevator
+  private final ManualUpDown elevatorUp = new ManualUpDown(elevator, Constants.Elevator.ELEV_UP_SPEED);
+  private final ManualUpDown elevatorDown = new ManualUpDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
 
-  private final PIDToHeight PIDtoL1 = new PIDToHeight(elevator, Constants.Elevator.L1_HEIGHT);
-  private final PIDToHeight PIDtoL2 = new PIDToHeight(elevator, Constants.Elevator.L2_HEIGHT);
-  private final PIDToHeight PIDtoL3 = new PIDToHeight(elevator, Constants.Elevator.L3_HEIGHT);
+  private final PIDToHeight pidElevatorL1 = new PIDToHeight(elevator, Constants.Elevator.L1_HEIGHT);
+  private final PIDToHeight pidElevatorL2 = new PIDToHeight(elevator, Constants.Elevator.L2_HEIGHT);
+  private final PIDToHeight pidElevatorL3 = new PIDToHeight(elevator, Constants.Elevator.L3_HEIGHT);
 
-// coral pivot
-  private final CoralManualPivot manualCoralPivotUp = new CoralManualPivot(coralPivot, Constants.CoralPivot.CORAL_PIVOT_UP_SPEED);
-  private final CoralManualPivot manualCoralPivotDown = new CoralManualPivot(coralPivot, Constants.CoralPivot.CORAL_PIVOT_DOWN_SPEED);
-
-  // coral hold
-  private final CoralGrab manualCoralHold = new CoralGrab(coralHold, Constants.CoralHold.HOLD_SPEED);
+  //CoralHold
+  private final CoralGrab coralGrab = new CoralGrab(coralHold, Constants.CoralHold.HOLD_SPEED);
+  private final CoralGrabWithCounter coralGrabWithCounter = new CoralGrabWithCounter(coralHold, Constants.CoralHold.HOLD_SPEED);
   private final CoralRelease coralRelease = new CoralRelease(coralHold, Constants.CoralHold.RELEASE_SPEED);
-
-  private final CoralGrabWithCounter counterCoralHold = new CoralGrabWithCounter(coralHold, Constants.CoralHold.HOLD_SPEED);
-
-    //level 4 release has a positive speed, not negative. the motor will spin in the same direction as if it is Hold
   private final CoralRelease coralReleaseL4 = new CoralRelease(coralHold, Constants.CoralHold.L4_RELEASE_SPEED);
+
+  //CoralPivot
+
+
+
+
+
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -83,12 +94,13 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // CREATE BUTTONS
-    // XBOXCONTROLLER - DRIVER CONTROLLER
-    JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
+    //Buttons
+
+    //Main Xbox Controller
     JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
     JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B);
     JoystickButton y = new JoystickButton(driverController, Constants.XboxController.Y);
+    JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
     JoystickButton lb = new JoystickButton(driverController, Constants.XboxController.LB);
     JoystickButton rb = new JoystickButton(driverController, Constants.XboxController.RB);
     JoystickButton lm = new JoystickButton(driverController, Constants.XboxController.LM);
@@ -99,7 +111,8 @@ public class RobotContainer {
     POVButton downPov = new POVButton(driverController,Constants.XboxController.POVXbox.DOWN_ANGLE); 
     POVButton leftPov = new POVButton(driverController,Constants.XboxController.POVXbox.LEFT_ANGLE);
     POVButton rightPov = new POVButton(driverController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
-    // XBOX CONTROLLER - AUX CONTROLLER
+    
+    //Secondary Xbox Controller
     JoystickButton x1 = new JoystickButton(auxController, Constants.XboxController.X);
     JoystickButton a1 = new JoystickButton(auxController, Constants.XboxController.A);
     JoystickButton b1 = new JoystickButton(auxController, Constants.XboxController.B);
@@ -115,39 +128,27 @@ public class RobotContainer {
     POVButton leftPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.LEFT_ANGLE);
     POVButton rightPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
 
-    // ALL BUTTONS BELOW ARE PLACEHOLDER
+    //Inputs
 
-    // ELEVATOR - zero manually before PID
-    upPov.whileTrue(manualUp);
-    downPov.whileTrue(manualDown);
+    lb.whileTrue(elevatorDown);
+    lm.whileTrue(elevatorUp);
 
-    a.onTrue(PIDtoL1); // 6 in
-    b.onTrue(PIDtoL2); // 12 in
-    x.onTrue(PIDtoL3); // 18 in
+    rb.whileTrue(algaePivotUp);
+    rm.whileTrue(algaePivotDown);
 
-    // ALGAE hold 
+    x.onTrue(pidAlgaePivot1);
+    y.onTrue(pidAlgaePivot2);
 
-    x1.whileTrue(manualAlgaeHold);
-    y1.whileTrue(manualAlgaeRelease);
-    //CORAL PIVOT
+    downPov.onTrue(pidElevatorL1);
+    leftPov.onTrue(pidElevatorL2);
+    upPov.onTrue(pidElevatorL3);
 
-    lb1.whileTrue(manualCoralPivotUp);
-    rb1.whileTrue(manualCoralPivotDown);
-
-    // CORAL HOLD
-  
-    rightPov.whileTrue(manualCoralHold);
-    leftPov.whileTrue(coralRelease);
-    rb.whileTrue(counterCoralHold);
-    lb.whileTrue(coralRelease);
-    lm.whileTrue(coralReleaseL4);
-
+    a.whileTrue(coralGrab);
+    b.whileTrue(coralRelease);
+    leftPov.whileTrue(coralGrabWithCounter);
+    rightPov.whileTrue(coralReleaseL4);
   }
-   /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
+
 
   public Command getAutonomousCommand() {
     return null; // Replace with autonomous command

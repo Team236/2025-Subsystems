@@ -9,7 +9,7 @@ import frc.robot.subsystems.CoralHold;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class CoralGrab extends Command {
-  /** Creates a new CoralGrab. */
+  /** Creates a new Coral_Manual. */
 
   private CoralHold coralHold;
   private double speed;
@@ -17,11 +17,8 @@ public class CoralGrab extends Command {
   public CoralGrab(CoralHold coralHold, double speed) {
     this.speed = speed;
     this.coralHold = coralHold;
-
-    //addRequirements(this.coralHold);
     addRequirements(this.coralHold);
   }
-
 
   // Called when the command is initially scheduled.
   @Override
@@ -38,7 +35,7 @@ public class CoralGrab extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-     coralHold.coralHStop();
+    coralHold.coralHStop();
   }
 
   // Returns true when the command should end.

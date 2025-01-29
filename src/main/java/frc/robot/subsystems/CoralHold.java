@@ -7,6 +7,9 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+//import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+//import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+//import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
@@ -31,7 +34,7 @@ public class CoralHold extends SubsystemBase {
   public Counter counter;
   public boolean isCounterUnplugged = false;
 
-  /** Creates a new Coral2Hold. */
+ 
   public CoralHold() {
 // // TALON SRX
     // coralMotor = new TalonSRX(Constants.MotorControllers.ID_CORALMOTOR);
@@ -42,8 +45,9 @@ public class CoralHold extends SubsystemBase {
     // // coralConfig.peakCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
     // // coralMotor.configAllSettings(coralConfig);
     
+
     // SPARK MAX
-    coralHoldMotor = new SparkMax(Constants.MotorControllers.ID_CORALMOTOR , MotorType.kBrushless);
+    coralHoldMotor = new SparkMax(Constants.MotorControllers.ID_CORAL_HOLD_MOTOR , MotorType.kBrushless);
 
     coralHoldConfig = new SparkMaxConfig();
     coralHoldConfig.inverted(true);
@@ -73,7 +77,7 @@ public class CoralHold extends SubsystemBase {
   }
 
   public void setCoralHSpeed(double speed) {
-     coralHoldMotor.set(speed);
+    coralHoldMotor.set(speed);
   }
 
   public void coralHStop () {
@@ -95,18 +99,33 @@ public class CoralHold extends SubsystemBase {
     return count;
   }
 
-  public boolean isCoralHSpinning() {
-    return (Math.abs(coralHoldMotor.get()) >0.08);
-    // TALON SRX
-    //return (Math.abs(coralMotor.getMotorOutputPercent()) > 0.08);
+  public boolean isCoralSpinning() {
+    boolean  spin;
+    
+    // // TALON SRX
+    // if (Math.abs(coralMotor.getMotorOutputPercent()) > 0.1) {
+    //   spin = true;
+    // }
+    // else {
+    //   spin = false;
+    // }
+    // return spin;
+
+    // SPARK MAX
+    if (Math.abs(coralHoldMotor.get()) >0.08) {
+      spin = true;
+    }
+    else {
+      spin = false;
+    }
+    return spin;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-     // This method will be called once per scheduler run
-     SmartDashboard.putNumber("Intake periodic count is:", getCoralHCount());
-     SmartDashboard.putBoolean("HasCoral: ", counter.get()>0);
+    SmartDashboard.putNumber("Intake periodic count is:", getCoralHCount());
+   SmartDashboard.putBoolean("HasNote: ", counter.get()>0);
   }
 
 }
