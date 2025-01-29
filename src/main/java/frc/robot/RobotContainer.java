@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.CoralHoldWithCounter;
-import frc.robot.commands.CoralManual;
+import frc.robot.commands.CoralGrabWithCounter;
+import frc.robot.commands.CoralGrab;
 import frc.robot.commands.CoralReleaseWithCounter;
 import frc.robot.subsystems.CoralHold;
 
@@ -32,14 +32,14 @@ public class RobotContainer {
 
   private final CoralHold coralHold = new CoralHold();
 
-  private final CoralManual manualCoralHold = new CoralManual(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
-  private final CoralManual manualCoralRelease = new CoralManual(coralHold, Constants.CoralHoldCon.RELEASE_SPEED);
+  private final CoralGrab manualCoralHold = new CoralGrab(coralHold, Constants.CoralHold.HOLD_SPEED);
+  private final CoralGrab manualCoralRelease = new CoralGrab(coralHold, Constants.CoralHold.RELEASE_SPEED);
 
-  private final CoralHoldWithCounter counterCoralHold = new CoralHoldWithCounter(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
-  private final CoralReleaseWithCounter counterCoralRelease = new CoralReleaseWithCounter(coralHold, Constants.CoralHoldCon.RELEASE_SPEED);
+  private final CoralGrabWithCounter counterCoralHold = new CoralGrabWithCounter(coralHold, Constants.CoralHold.HOLD_SPEED);
+  private final CoralReleaseWithCounter counterCoralRelease = new CoralReleaseWithCounter(coralHold, Constants.CoralHold.RELEASE_SPEED);
 
   //level 4 release has a positive speed, not negative. the motor will spin in the same direction as if it is Hold
-  private final CoralReleaseWithCounter counterCoralReleaseL4 = new CoralReleaseWithCounter(coralHold, Constants.CoralHoldCon.L4_RELEASE_SPEED);
+  private final CoralReleaseWithCounter counterCoralReleaseL4 = new CoralReleaseWithCounter(coralHold, Constants.CoralHold.L4_RELEASE_SPEED);
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */

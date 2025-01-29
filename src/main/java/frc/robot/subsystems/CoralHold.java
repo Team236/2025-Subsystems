@@ -19,25 +19,24 @@ public class CoralHold extends SubsystemBase {
   /** Creates a new CoralHold. */
   
 
-  private SparkMax coralMotor;
-  private SparkMaxConfig coralConfig;
+  private SparkMax coralHoldMotor;
+  private SparkMaxConfig coralHoldConfig;
   public Counter counter;
   public boolean isCounterUnplugged = false;
 
  
   public CoralHold() {
-    coralMotor = new SparkMax(Constants.MotorControllers.ID_CORALMOTOR , MotorType.kBrushless);
+    coralHoldMotor = new SparkMax(Constants.MotorControllers.ID_CORALMOTOR , MotorType.kBrushless);
 
-    coralConfig = new SparkMaxConfig();
-    coralConfig.inverted(true);
+    coralHoldConfig = new SparkMaxConfig();
+    coralHoldConfig.inverted(true);
+    coralHoldConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
 
-    coralConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-
-    coralMotor.configure(coralConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    coralHoldMotor.configure(coralHoldConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
 
       try {
       counter = new Counter();
-      counter.setUpSource(Constants.CoralHoldCon.DIO_COUNTER);
+      counter.setUpSource(Constants.CoralHold.DIO_COUNTER);
       counter.reset();
     }
 
@@ -55,11 +54,11 @@ public class CoralHold extends SubsystemBase {
   }
 
   public void setCoralSpeed(double speed) {
-    coralMotor.set(speed);
+    coralHoldMotor.set(speed);
   }
 
   public void coralStop () {
-    coralMotor.set(0);
+    coralHoldMotor.set(0);
   }
 
   public int getCoralCount() {
@@ -75,7 +74,7 @@ public class CoralHold extends SubsystemBase {
 
   public boolean isCoralSpinning() {
     boolean spin;
-    if (Math.abs(coralMotor.get()) >0.08) {
+    if (Math.abs(coralHoldMotor.get()) >0.08) {
       spin = true;
     }
     else {
