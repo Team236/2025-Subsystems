@@ -130,7 +130,24 @@ public class RobotContainer {
 
     //Inputs
 
+    lb.whileTrue(elevatorDown);
+    lm.whileTrue(elevatorUp);
+
+    rb.whileTrue(algaePivotUp);
+    rm.whileTrue(algaePivotDown);
+
+    x.onTrue(pidAlgaePivot1);
+    y.onTrue(pidAlgaePivot2);
+
+    downPov.onTrue(pidElevatorL1);
+    leftPov.onTrue(pidElevatorL2);
+    upPov.onTrue(pidElevatorL3);
+
     a.whileTrue(coralHoldPull);
+    b.whileTrue(coralHoldRelease);
+
+    rightPov.whileTrue(coralHoldReleaseL4);
+
 
   }
 
