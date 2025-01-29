@@ -2,51 +2,43 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.CoralHold;
+package frc.robot.commands.AlgaePivotCommands;
 
-import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.CoralHold;
+import frc.robot.subsystems.AlgaePivot;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class CoralHoldWithCounter extends Command {
-  /** Creates a new Coral_Manual. */
-  //test comment
-  private CoralHold coralHold;
+public class ManualAlgaePivot extends Command {
+  
+  private AlgaePivot algaePivot;
   private double speed;
 
-  public CoralHoldWithCounter(CoralHold coralHold, double speed) {
+  public ManualAlgaePivot(AlgaePivot algaePivot, double speed) {
+    this.algaePivot = algaePivot;
     this.speed = speed;
-    this.coralHold = coralHold;
 
-    //addRequirements(this.coralHold);
-    addRequirements(this.coralHold);
+    addRequirements(this.algaePivot);
   }
-
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    
-    // coralHold.resetCount();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    coralHold.setCoralSpeed(speed);
+    algaePivot.setAlgaePivotSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.coralHold.coralStop();
+    algaePivot.stopAlgaePivot();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // command finishes if coral is detected
-    return coralHold.getCoralCount() > 0;
+    return false;
   }
 }

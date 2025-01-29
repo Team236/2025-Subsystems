@@ -4,71 +4,77 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.SparkMax;
-import com.revrobotics.RelativeEncoder;
-//import com.revrobotics.SparkPIDController;
-//import com.revrobotics.SparkBase.ControlType;
+//import com.ctre.phoenix6.swerve.SwerveModuleConstants.ClosedLoopOutputType;
+//import com.revrobotics.RelativeEncoder;
 
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.config.SparkBaseConfig;
+import com.revrobotics.spark.config.SparkMaxConfig;
+
+import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 
-//Some of this code is 2024 code, and may not be relevant
-//if you see a 'tilt' varible, it is old code
-//if you see a 'coral' variable, it is new code
-//TODO make tilt varibles into coral varibles
-
-public class CoralPivot extends SubsystemBase {
-    private SpasrkMaxConfig coralPivotConfig;
+public class coralPivot extends SubsystemBase {
+  
   private SparkMax coralPivotMotor;
-  private RelativeEncoder coralPivotEncoder;
-  //this is copied from the 2024 code, this may not be relevant
-  //SWITCHED TO WPILib PID, not SPARKMAX PID
-  //private SparkPIDController tiltPIDController;
+  private SparkBaseConfig coralPivotConfig;
+   private RelativeEncoder coralPivotEncoder;
   private boolean isCoralPivotExtException, isCoralPivotRetException;
   private DigitalInput CoralExtLimit, CoralRetLimit;
+ 
+ //private RelativeEncoder coralPivotEncoder;  only if using TalonSRX
+    /** Creates a new coralPivot. */
+    public coralPivot() {
+    
+    coralPivotMotor = new SparkMax(Constants.MotorControllers.ID_CORAL_PIVOT, MotorType.kBrushless);
+    coralPivotEncoder = coralPivotMotor.getEncoder(); 
 
-
-    /** Creates a new CoralPivot. */
-    public CoralPivot() {
-    coralPivotMotor = new SparkMax(Constants.MotorControllers.ID_CARTRIDGE_TILT, MotorType.kBrushless);
-
-    coralPivotMotor.restoreFactoryDefaults();
-    coralPivotMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-    coralPivotMotor.setInverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
-    coralPivotEncoder = coralPivotMotor.getEncoder();
-   // tiltPIDController = tiltMotor.getPIDController();
-    }
-
+    coralPivotConfig.inverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
+    coralPivotConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    coralPivotMotor.configure(coralPivotConfig,SparkBase.ResetMode.kResetSafeParameters ,SparkBase.PersistMode.kPersistParameters);
+        
     try {
-      CoralExtLimit = new DigitalInput(Constants.coralPivot.DIO_CORAL_PIVOT_EXT_LIMIT);
+      //  This tries to make a new digital input, and if it fails, throws an error 
+      CoralExtLimit = new DigitalInput(Constants.CoralPivot.DIO_EXT_LIMIT);
     } catch (Exception e) {
        isCoralPivotExtException = true;
-      SmartDashboard.putBoolean("exception thrown for Coral top limit: ", isCoralPivotExtException);
+      SmartDashboard.putBoolean("exception thrown for Coral Extend limit: ", isCoralPivotExtException);
     }
     try {
-      CoralRetLimit = new DigitalInput(Constants.coralPivot.DIO_CORAL_PIVOT_RET_LIMIT);
+      //  This sets a bottom limit for the coral, and if it fails, throws an error
+      CoralRetLimit = new DigitalInput(Constants.CoralPivot.DIO_RET_LIMIT);
     } catch (Exception e) {
       isCoralPivotRetException = true;
-      SmartDashboard.putBoolean("exception thrown for Coral bottom limit: ", isCoralPivotRetException);
+      SmartDashboard.putBoolean("exception thrown for Coral Retract limit: ", isCoralPivotRetException);
     }
-  } 
+}
+
 // methods start here
 public double getCoralEncoder() {  //gives encoder reading in Revs
-  return coralEncoder.getPosition();
+  return coralPivotEncoder.getPosition();
 }
 
 public void resetCoralEncoder() {
-  coralEncoder.setPosition(0);
+  coralPivotEncoder.setPosition(0);
 }
 
 public void stopCoralPivot() {
 coralPivotMotor.set(0);
 }
 
+public double getCoralPivotSpeed() {
+  return coralPivotMotor.get();
+}
 public boolean isCoralExtLimit() {
 if (isCoralPivotExtException) {
   return true;
@@ -84,14 +90,11 @@ if (isCoralPivotRetException) {
   return CoralRetLimit.get();
 }
 }
+
 public boolean isFullyExtended() {
-  boolean aFullExtend;
-  if (getCoralEncoder() <= Constants.coralPivot.CORAL_ENC_REVS_MAX) {  //WAS >=
-    aFullExtend = true;
-  } else {
-    aFullExtend = false;      }
-  return aFullExtend;
+  return (getCoralEncoder() <= Constants.CoralPivot.ENC_REVS_MAX);
 }
+
 public void setCoralPivotSpeed(double speed) {
   if (speed <= 0) {  //was >0 but changed since going negative when extending now
      //TODO make sure elevator speed > 0 when going up
@@ -115,9 +118,7 @@ public void setCoralPivotSpeed(double speed) {
      }
 }
 
-public double getCoralTiltSpeed() {
-  return coralPivotMotor.get();
-}
+
 
 //Begin things that may not be relevant
 //these are things that might be useful in the future if we use CANSparkMax PID

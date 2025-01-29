@@ -11,16 +11,16 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.AlgaeHold.AlgaeGrab;
-import frc.robot.commands.AlgaePivot.ManualAlgaePivot;
-import frc.robot.commands.AlgaePivot.PIDAlgaePivot;
-import frc.robot.commands.CoralHold.CoralHoldWithCounter;
-import frc.robot.commands.CoralHold.CoralManualHold;
-import frc.robot.commands.CoralHold.CoralRelease;
+import frc.robot.commands.AlgaeHoldCommands.AlgaeGrab;
+import frc.robot.commands.AlgaePivotCommands.ManualAlgaePivot;
+import frc.robot.commands.AlgaePivotCommands.PIDAlgaePivot;
+import frc.robot.commands.CoralHoldCommands.CoralGrabWithCounter;
+import frc.robot.commands.CoralHoldCommands.CoralGrab;
+import frc.robot.commands.CoralHoldCommands.CoralRelease;
+import frc.robot.commands.ElevatorCommands.ManualUpDown;
+import frc.robot.commands.ElevatorCommands.PIDToHeight;
 import frc.robot.subsystems.AlgaeHold;
 import frc.robot.subsystems.AlgaePivot;
-import frc.robot.commands.Elevator.ManualUpDown;
-import frc.robot.commands.Elevator.PIDToHeight;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.CoralHold;
 
@@ -64,11 +64,10 @@ public class RobotContainer {
   private final PIDToHeight pidElevatorL3 = new PIDToHeight(elevator, Constants.Elevator.L3_HEIGHT);
 
   //CoralHold
-  private final CoralManualHold coralHoldPull = new CoralManualHold(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
-  private final CoralRelease coralHoldRelease = new CoralRelease(coralHold, Constants.CoralHoldCon.RELEASE_SPEED);
-
-  private final CoralHoldWithCounter coralHoldCounter = new CoralHoldWithCounter(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
-  private final CoralRelease coralHoldReleaseL4 = new CoralRelease(coralHold, Constants.CoralHoldCon.L4_RELEASE_SPEED);
+  private final CoralGrab coralGrab = new CoralGrab(coralHold, Constants.CoralHold.HOLD_SPEED);
+  private final CoralGrabWithCounter coralGrabWithCounter = new CoralGrabWithCounter(coralHold, Constants.CoralHold.HOLD_SPEED);
+  private final CoralRelease coralRelease = new CoralRelease(coralHold, Constants.CoralHold.RELEASE_SPEED);
+  private final CoralRelease coralReleaseL4 = new CoralRelease(coralHold, Constants.CoralHold.L4_RELEASE_SPEED);
 
   //CoralPivot
 
@@ -143,12 +142,10 @@ public class RobotContainer {
     leftPov.onTrue(pidElevatorL2);
     upPov.onTrue(pidElevatorL3);
 
-    a.whileTrue(coralHoldPull);
-    b.whileTrue(coralHoldRelease);
-
-    rightPov.whileTrue(coralHoldReleaseL4);
-
-
+    a.whileTrue(coralGrab);
+    b.whileTrue(coralRelease);
+    leftPov.whileTrue(coralGrabWithCounter);
+    rightPov.whileTrue(coralReleaseL4);
   }
 
   public Command getAutonomousCommand() {

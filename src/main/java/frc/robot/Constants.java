@@ -28,19 +28,15 @@ public final class Constants {
     //AlgaeHold (placeholder)
     public static final int ID_ALGAE_HOLD = 49;
 
+   //CoralHold (placeholder)
+    // public static final int ID_CORAL_HOLD_MOTORSRX = 14; //IF USE TALON SRX
+    public static final int ID_CORAL_HOLD_MOTOR = 34;//BRUSHED SM MOTOR
+
     //AlgaePivot (placeholder)
-    public static final int ID_ALGAE_PIVOT = 50;
+    public static final int ID_ALGAE_PIVOT = 500;//Change to 50 when test algaehold
 
-    //CoralHold (placeholder)
-    public static final int ID_CORALMOTORSRX = 14;
-    public static final int ID_CORALMOTOR = 48;
-  }
-
-  public static class CoralHoldCon {
-    public static final int DIO_COUNTER = 12;
-    public static final double HOLD_SPEED = .1;
-    public static final double RELEASE_SPEED = -.1;
-    public static final double L4_RELEASE_SPEED = .1;
+     //CoralPivot (placeholder)
+     public static final int ID_CORAL_PIVOT = 50;
   }
 
   public static class Elevator {
@@ -68,7 +64,32 @@ public final class Constants {
 
   }
 
+public static class AlgaeHold {
+  public static final double HOLD_SPEED = 0.1;
+  public static final double RELEASE_SPEED = -0.1;
+}
+public static class CoralHold {
+  public static final int DIO_COUNTER = 12;
+  public static final double HOLD_SPEED = .1;
+  public static final double RELEASE_SPEED = -.1;
+  public static final double L4_RELEASE_SPEED = .1;
+}
+
   public static class AlgaePivot {
+    public static final int DIO_EXT_LIMIT = 80; //change to 8 when test AlgaePivot
+    public static final int DIO_RET_LIMIT = 90; //change to 9 when test AlgaePivot
+    public static final double ENC_REVS_MAX = -74;
+    public static final double ENC_REVS_TEST1 = -30;
+    public static final double ENC_REVS_TEST2 = -52;
+    public static final double MAN_EXT_SPEED = -0.1;
+    public static final double MAN_RET_SPEED = 0.1;
+    public static final double KP = 0.029;
+    public static final double KI = 0;
+    public static final double KD = 0;
+    public static final double KFF = 0;
+  }
+  
+  public static class CoralPivot {
     public static final int DIO_EXT_LIMIT = 8;
     public static final int DIO_RET_LIMIT = 9;
     public static final double ENC_REVS_MAX = -74;
@@ -109,11 +130,6 @@ public final class Constants {
       public static final int DOWN_ANGLE = 180;
       public static final int LEFT_ANGLE = 270;
     }
-  }
 
-  public static class AlgaeHold {
-    public static final double HOLD_SPEED = 0.1;
-    public static final double RELEASE_SPEED = -0.1;
-  }
- 
+}
 }
