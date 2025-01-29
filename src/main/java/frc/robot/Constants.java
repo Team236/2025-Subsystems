@@ -33,6 +33,7 @@ public final class Constants {
 
     // SparkMax
     public static final int ID_CORALMOTOR = 48;
+    public static final int ID_CORALPIVOTMOTOR = 50;
   }
 
   public static class CoralHoldCon {
@@ -41,11 +42,7 @@ public final class Constants {
     public static final double RELEASE_SPEED = -.1;
     public static final double L4_RELEASE_SPEED = .1;
       
-    //placeholder PID values supporting PID for subsystem
-    public static final double Kp_CORALPIVOT = 0.002;   //TODO tune PID values
-    public static final double Ki_CORALPIVOT = 0;
-    public static final double Kd_CORALPIVOT = 0;
-
+  
     // target position values for PID
     public static final double PIVOT_STOWED_POSITION=0; //TODO find actual encoder rotation values
     public static final double PIVOT_LEVEL1_POSITION=5; //TODO find actual encoder rotation values
@@ -58,7 +55,19 @@ public final class Constants {
     public static final double CORAL_ENC_REVS_MAX = 0; //TODO find actual
 
   }
+public static class CoralPivot {
 
+public static final double DIO_CORAL_PIVOT_RET_LIMIT = 0; //TODO find actual
+public static final double DIO_CORAL_PIVOT_EXT_LIMIT = 0; // TODO find actual
+public static final double CORAL_ENC_REVS_MAX = 0; // TODO find actual
+public static final double HOLD_SPEED = 0; // TODO find actual
+
+  //placeholder PID values supporting PID for subsystem
+    public static final double Kp_CORALPIVOT = 0.002;   //TODO tune PID values
+    public static final double Ki_CORALPIVOT = 0;   
+    public static final double Kd_CORALPIVOT = 0;
+
+}
   public static class Elevator {
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;

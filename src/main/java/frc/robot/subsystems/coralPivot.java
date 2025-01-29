@@ -42,7 +42,7 @@ public class CoralPivot extends SubsystemBase {
 
     /** Creates a new CoralPivot. */
     public CoralPivot() {
-    coralPivotMotor = new SparkMax(Constants.CoralHoldCon.PIVOT_MOTOR, MotorType.kBrushless);
+    coralPivotMotor = new SparkMax(Constants.CoralPivot.CORALPIVOTMOTOR, MotorType.kBrushless);
             
     coralPivotConfig.inverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
     coralPivotConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
@@ -56,14 +56,14 @@ public class CoralPivot extends SubsystemBase {
      }
     try {
       //  This tries to make a new digital input, and if it fails, throws an error 
-      CoralExtLimit = new DigitalInput(Constants.CoralHoldCon.DIO_CORAL_PIVOT_EXT_LIMIT);
+      CoralExtLimit = new DigitalInput(Constants.CoralPivot.DIO_CORAL_PIVOT_EXT_LIMIT);
     } catch (Exception e) {
        isCoralPivotExtException = true;
       SmartDashboard.putBoolean("exception thrown for Coral top limit: ", isCoralPivotExtException);
     }
     try {
       //  This sets a bottom limit for the coral, and if it fails, throws an error
-      CoralRetLimit = new DigitalInput(Constants.CoralHoldCon.DIO_CORAL_PIVOT_RET_LIMIT);
+      CoralRetLimit = new DigitalInput(Constants.CoralPivot.DIO_CORAL_PIVOT_RET_LIMIT);
     } catch (Exception e) {
       isCoralPivotRetException = true;
       SmartDashboard.putBoolean("exception thrown for Coral bottom limit: ", isCoralPivotRetException);
@@ -101,7 +101,7 @@ if (isCoralPivotRetException) {
 }
 public boolean isFullyExtended() {
   boolean aFullExtend;
-  if (getCoralEncoder() <= Constants.CoralHoldCon.CORAL_ENC_REVS_MAX) {  //WAS >=
+  if (getCoralEncoder() <= Constants.CoralPivot.CORAL_ENC_REVS_MAX) {  //WAS >=
     aFullExtend = true;
   } else {
     aFullExtend = false;      }
