@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CoralHold;
 
@@ -22,7 +21,6 @@ public class CoralReleaseWithCounter extends Command {
     //addRequirements(this.coralHold);
     addRequirements(this.coralHold);
   }
-
 
   // Called when the command is initially scheduled.
   @Override
