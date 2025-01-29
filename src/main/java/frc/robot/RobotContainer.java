@@ -36,6 +36,7 @@ public class RobotContainer {
   private final AlgaeHold algaeHold = new AlgaeHold();
   private final Elevator elevator = new Elevator();
   private final CoralHold coralHold = new CoralHold();
+  private final CoralPivot coralPivot = new CoralPivot();
   
   //COMMANDS
   // algae hold
@@ -49,6 +50,10 @@ public class RobotContainer {
   private final PIDToHeight PIDtoL1 = new PIDToHeight(elevator, Constants.Elevator.L1_HEIGHT);
   private final PIDToHeight PIDtoL2 = new PIDToHeight(elevator, Constants.Elevator.L2_HEIGHT);
   private final PIDToHeight PIDtoL3 = new PIDToHeight(elevator, Constants.Elevator.L3_HEIGHT);
+
+// coral pivot
+  private final ManualCoralPivot manualCoralPivotUp = new ManualMove(coralPivot, Constants.CoralPivot.CORAL_PIVOT_UP_SPEED);
+  private final ManualCoralPivot manualCoralPivotDown = new ManualMove(coralPivot, Constants.CoralPivot.CORAL_PIVOT_DOWN_SPEED);
 
   // coral hold
   private final CoralManualHold manualCoralHold = new CoralManualHold(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
@@ -122,15 +127,18 @@ public class RobotContainer {
 
     x1.whileTrue(manualAlgaeHold);
     y1.whileTrue(manualAlgaeRelease);
+    //CORAL PIVOT
 
+    lb1.whileTrue(manualCoralPivotUp);
+    rb1.whileTrue(manualCoralPivotDown);
+    
     // CORAL HOLD
-
+  
     rightPov.whileTrue(manualCoralHold);
     leftPov.whileTrue(coralRelease);
     rb.whileTrue(counterCoralHold);
     lb.whileTrue(coralRelease);
     lm.whileTrue(coralReleaseL4);
-
 
   }
 
