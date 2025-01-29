@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AlgaeHold.ManualAlgaeHold;
-import frc.robot.commands.CoralHold.CoralHoldWithCounter;
-import frc.robot.commands.CoralHold.CoralManualHold;
+import frc.robot.commands.CoralHold.CoralGrabWithCounter;
+import frc.robot.commands.CoralHold.CoralGrab;
 import frc.robot.commands.CoralHold.CoralRelease;
 import frc.robot.commands.CoralPivot.CoralManualPivot;
 import frc.robot.subsystems.AlgaeHold;
@@ -58,10 +58,10 @@ public class RobotContainer {
   private final CoralManualPivot manualCoralPivotDown = new CoralManualPivot(coralPivot, Constants.CoralPivot.CORAL_PIVOT_DOWN_SPEED);
 
   // coral hold
-  private final CoralManualHold manualCoralHold = new CoralManualHold(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
+  private final CoralGrab manualCoralHold = new CoralGrab(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
   private final CoralRelease coralRelease = new CoralRelease(coralHold, Constants.CoralHoldCon.RELEASE_SPEED);
 
-  private final CoralHoldWithCounter counterCoralHold = new CoralHoldWithCounter(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
+  private final CoralGrabWithCounter counterCoralHold = new CoralGrabWithCounter(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
 
     //level 4 release has a positive speed, not negative. the motor will spin in the same direction as if it is Hold
   private final CoralRelease coralReleaseL4 = new CoralRelease(coralHold, Constants.CoralHoldCon.L4_RELEASE_SPEED);

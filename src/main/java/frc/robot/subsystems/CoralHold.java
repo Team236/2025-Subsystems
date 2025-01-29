@@ -27,8 +27,8 @@ public class CoralHold extends SubsystemBase {
   // private TalonSRXControlMode controlMode = TalonSRXControlMode.PercentOutput;
 
   // SPARK MAX
-  private SparkMax coralMotor;
-  private SparkMaxConfig coralConfig;
+  private SparkMax coralHoldMotor;
+  private SparkMaxConfig coralHoldConfig;
 
   // COUNTER
   public Counter counter;
@@ -47,14 +47,14 @@ public class CoralHold extends SubsystemBase {
     
 
     // SPARK MAX
-    coralMotor = new SparkMax(Constants.MotorControllers.ID_CORALMOTOR , MotorType.kBrushless);
+    coralHoldMotor = new SparkMax(Constants.MotorControllers.ID_CORALMOTOR , MotorType.kBrushless);
 
-    coralConfig = new SparkMaxConfig();
-    coralConfig.inverted(true);
+    coralHoldConfig = new SparkMaxConfig();
+    coralHoldConfig.inverted(true);
 
-    coralConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    coralHoldConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
 
-    coralMotor.configure(coralConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    coralHoldMotor.configure(coralHoldConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
 
     try {
       counter = new Counter();
@@ -76,7 +76,7 @@ public class CoralHold extends SubsystemBase {
   }
 
   public void setCoralSpeed(double speed) {
-    // coralMotor.set(speed);
+     coralHoldMotor.set(speed);
   }
 
   public void coralStop () {
@@ -84,7 +84,7 @@ public class CoralHold extends SubsystemBase {
     // coralMotor.set(controlMode, 0);
 
     // SPARK MAX
-    coralMotor.set(0);
+    coralHoldMotor.set(0);
   }
 
   public int getCoralCount() {
@@ -111,7 +111,7 @@ public class CoralHold extends SubsystemBase {
     // return spin;
 
     // SPARK MAX
-    if (Math.abs(coralMotor.get()) >0.1) {
+    if (Math.abs(coralHoldMotor.get()) >0.08) {
       spin = true;
     }
     else {
@@ -124,6 +124,6 @@ public class CoralHold extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Intake periodic count is:", getCoralCount());
-   SmartDashboard.putBoolean("HasNote: ", counter.get()>0);
+   SmartDashboard.putBoolean("HasCoral: ", counter.get()>0);
   }
 }
