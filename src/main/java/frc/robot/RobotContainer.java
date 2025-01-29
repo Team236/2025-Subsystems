@@ -15,11 +15,13 @@ import frc.robot.commands.AlgaeHold.ManualAlgaeHold;
 import frc.robot.commands.CoralHold.CoralHoldWithCounter;
 import frc.robot.commands.CoralHold.CoralManualHold;
 import frc.robot.commands.CoralHold.CoralRelease;
+import frc.robot.commands.CoralPivot.CoralManualPivot;
 import frc.robot.subsystems.AlgaeHold;
 import frc.robot.commands.Elevator.ManualUpDown;
 import frc.robot.commands.Elevator.PIDToHeight;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.CoralHold;
+import frc.robot.subsystems.CoralPivot;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -52,8 +54,8 @@ public class RobotContainer {
   private final PIDToHeight PIDtoL3 = new PIDToHeight(elevator, Constants.Elevator.L3_HEIGHT);
 
 // coral pivot
-  private final ManualCoralPivot manualCoralPivotUp = new ManualCoralPivot(coralPivot, Constants.CoralPivot.CORAL_PIVOT_UP_SPEED);
-  private final ManualCoralPivot manualCoralPivotDown = new ManualCoralPivot(coralPivot, Constants.CoralPivot.CORAL_PIVOT_DOWN_SPEED);
+  private final CoralManualPivot manualCoralPivotUp = new CoralManualPivot(coralPivot, Constants.CoralPivot.CORAL_PIVOT_UP_SPEED);
+  private final CoralManualPivot manualCoralPivotDown = new CoralManualPivot(coralPivot, Constants.CoralPivot.CORAL_PIVOT_DOWN_SPEED);
 
   // coral hold
   private final CoralManualHold manualCoralHold = new CoralManualHold(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
@@ -141,17 +143,14 @@ public class RobotContainer {
     lm.whileTrue(coralReleaseL4);
 
   }
-
-  public Command getAutonomousCommand() {
-    return null; // Replace with autonomous command
-  }
-
-  /**
+   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-  // public Command getAutonomousCommand() {
-  //   // An example command will be run in autonomous
-  // }
+  public Command getAutonomousCommand() {
+    return null; // Replace with autonomous command
+    //  return new ExampleCommand(m_exampleSubsystem);
+  }
+
 }
