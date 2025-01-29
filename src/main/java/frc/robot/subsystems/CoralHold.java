@@ -7,9 +7,6 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
@@ -18,9 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class CoralHold extends SubsystemBase {
-  /** Creates a new CoralHold. */
 
+public class CoralHold extends SubsystemBase {
+/** Creates a new CoralHold. */
   // // TALON SRX
   // private TalonSRX coralMotor;
   // private TalonSRXConfiguration coralConfig;
@@ -34,9 +31,9 @@ public class CoralHold extends SubsystemBase {
   public Counter counter;
   public boolean isCounterUnplugged = false;
 
- 
+  /** Creates a new Coral2Hold. */
   public CoralHold() {
-    // // TALON SRX
+// // TALON SRX
     // coralMotor = new TalonSRX(Constants.MotorControllers.ID_CORALMOTOR);
     // coralMotor.setInverted(true);
 
@@ -45,20 +42,18 @@ public class CoralHold extends SubsystemBase {
     // // coralConfig.peakCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
     // // coralMotor.configAllSettings(coralConfig);
     
-
     // SPARK MAX
     coralHoldMotor = new SparkMax(Constants.MotorControllers.ID_CORALMOTOR , MotorType.kBrushless);
 
     coralHoldConfig = new SparkMaxConfig();
     coralHoldConfig.inverted(true);
-
     coralHoldConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
 
     coralHoldMotor.configure(coralHoldConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
 
     try {
       counter = new Counter();
-      counter.setUpSource(Constants.CoralHoldCon.DIO_COUNTER);
+      counter.setUpSource(Constants.CoralHold.DIO_COUNTER);
       counter.reset();
     }
 
@@ -70,16 +65,18 @@ public class CoralHold extends SubsystemBase {
     counter.reset(); //sets counter to zero
   }
 
+  //METHOSD START HERE
+
   public void resetCount() {
     // automaticaly sets counter to 0 at start 
     counter.reset();
   }
 
-  public void setCoralSpeed(double speed) {
+  public void setCoralHSpeed(double speed) {
      coralHoldMotor.set(speed);
   }
 
-  public void coralStop () {
+  public void coralHStop () {
     // // TALON SRX
     // coralMotor.set(controlMode, 0);
 
@@ -87,7 +84,7 @@ public class CoralHold extends SubsystemBase {
     coralHoldMotor.set(0);
   }
 
-  public int getCoralCount() {
+  public int getCoralHCount() {
     int count;
     if (isCounterUnplugged) {
       count = 0;
@@ -98,32 +95,18 @@ public class CoralHold extends SubsystemBase {
     return count;
   }
 
-  public boolean isCoralSpinning() {
-    boolean  spin;
-    
-    // // TALON SRX
-    // if (Math.abs(coralMotor.getMotorOutputPercent()) > 0.1) {
-    //   spin = true;
-    // }
-    // else {
-    //   spin = false;
-    // }
-    // return spin;
-
-    // SPARK MAX
-    if (Math.abs(coralHoldMotor.get()) >0.08) {
-      spin = true;
-    }
-    else {
-      spin = false;
-    }
-    return spin;
+  public boolean isCoralHSpinning() {
+    return (Math.abs(coralHoldMotor.get()) >0.08);
+    // TALON SRX
+    //return (Math.abs(coralMotor.getMotorOutputPercent()) > 0.08);
   }
-  
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Intake periodic count is:", getCoralCount());
-   SmartDashboard.putBoolean("HasCoral: ", counter.get()>0);
+     // This method will be called once per scheduler run
+     SmartDashboard.putNumber("Intake periodic count is:", getCoralHCount());
+     SmartDashboard.putBoolean("HasCoral: ", counter.get()>0);
   }
+
 }

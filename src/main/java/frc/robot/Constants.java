@@ -36,7 +36,7 @@ public final class Constants {
     public static final int ID_CORALPIVOTMOTOR = 50;
   }
 
-  public static class CoralHoldCon {
+  public static class CoralHold {
     public static final int DIO_COUNTER = 12;
     public static final double HOLD_SPEED = .1;
     public static final double RELEASE_SPEED = -.1;
