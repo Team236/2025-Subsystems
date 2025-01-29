@@ -2,23 +2,28 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Elevator;
+package frc.robot.commands.CoralPivotCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.CoralPivot;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ManualUpDown extends Command {
+public class CoralManualPivot extends Command {
 
-  private Elevator elevator;
-  private double speed;
+  private CoralPivot coralPivot;
+  //private PIDController coralPID;
+  private double coralSpeed;
+    
 
-  /** Creates a new ManualUpDown. */
-  public ManualUpDown(Elevator elevator, double speed) {
-    this.elevator = elevator;
-    this.speed = speed;
+  /** Creates a new CoralManualPivot. **/
+    public CoralManualPivot(CoralPivot coralPivot, double coralSpeed) {
+    this.coralPivot = coralPivot;
+    this.coralSpeed = coralSpeed;
+  
 
-    addRequirements(this.elevator);
+    //coralPID = new PIDController(Constants.CoralPivot.Kp_CORALPIVOT, Constants.CoralPivot.Ki_CORALPIVOT, Constants.CoralPivot.Kd_CORALPIVOT);
+    //coralPID.setSetpoint(coralPosition);
+   // addRequirements(this.coralPivot);
   }
 
   // Called when the command is initially scheduled.
@@ -32,13 +37,13 @@ public class ManualUpDown extends Command {
   public void execute() {
 
     //may need to use -speed?
-    elevator.setElevSpeed(speed);
+    coralPivot.setCoralPivotSpeed(coralSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    elevator.stopElevator();
+    coralPivot.stopCoralPivot();
   }
 
   // Returns true when the command should end.
