@@ -31,40 +31,51 @@ import frc.robot.subsystems.CoralHold;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  //CONTROLLERS
+
+  //Controllers
   XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
   XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
 
-  //Instance of each SUBSYSTEM
+  //Subsystems
   private final AlgaeHold  algaeHold = new AlgaeHold();
   private final AlgaePivot algaePivot = new AlgaePivot();
+  private final Elevator elevator = new Elevator();
+  private final CoralHold coralHold = new CoralHold();
 
-  //Instance of each COMMAND
-  private final AlgaeGrab holdAlgae = new AlgaeGrab(algaeHold, Constants.AlgaeHold.HOLD_SPEED);
-  private final AlgaeGrab releaseAlgae = new AlgaeGrab(algaeHold, Constants.AlgaeHold.RELEASE_SPEED);
+  //Commmands - Any pid commands put pid at the beginning, then put the subsystem, then put the action :)
 
-  private final ManualAlgaePivot pivotDownAlgae = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.MAN_EXT_SPEED);
-  private final ManualAlgaePivot pivotUpAlgae = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.MAN_RET_SPEED);
+  //AlgaeHold
+  private final AlgaeGrab algaeGrabPull = new AlgaeGrab(algaeHold, Constants.AlgaeHold.HOLD_SPEED);
+  private final AlgaeGrab algaeGrabRelease = new AlgaeGrab(algaeHold, Constants.AlgaeHold.RELEASE_SPEED);
+
+  //AlgaePivot
+  private final ManualAlgaePivot algaePivotDown = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.MAN_EXT_SPEED);
+  private final ManualAlgaePivot algaePivotUp = new ManualAlgaePivot(algaePivot, Constants.AlgaePivot.MAN_RET_SPEED);
 
   private final PIDAlgaePivot pidAlgaePivot1 = new PIDAlgaePivot(algaePivot, Constants.AlgaePivot.ENC_REVS_TEST1);
   private final PIDAlgaePivot pidAlgaePivot2 = new PIDAlgaePivot(algaePivot, Constants.AlgaePivot.ENC_REVS_TEST2);
   
-  // elevator
-  private final ManualUpDown manualUp = new ManualUpDown(elevator, Constants.Elevator.ELEV_UP_SPEED);
-  private final ManualUpDown manualDown = new ManualUpDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
+  //Elevator
+  private final ManualUpDown elevatorUp = new ManualUpDown(elevator, Constants.Elevator.ELEV_UP_SPEED);
+  private final ManualUpDown elevatorDown = new ManualUpDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
 
-  private final PIDToHeight PIDtoL1 = new PIDToHeight(elevator, Constants.Elevator.L1_HEIGHT);
-  private final PIDToHeight PIDtoL2 = new PIDToHeight(elevator, Constants.Elevator.L2_HEIGHT);
-  private final PIDToHeight PIDtoL3 = new PIDToHeight(elevator, Constants.Elevator.L3_HEIGHT);
+  private final PIDToHeight pidElevatorL1 = new PIDToHeight(elevator, Constants.Elevator.L1_HEIGHT);
+  private final PIDToHeight pidElevatorL2 = new PIDToHeight(elevator, Constants.Elevator.L2_HEIGHT);
+  private final PIDToHeight pidElevatorL3 = new PIDToHeight(elevator, Constants.Elevator.L3_HEIGHT);
 
-  // coral hold
-  private final CoralManualHold manualCoralHold = new CoralManualHold(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
-  private final CoralRelease coralRelease = new CoralRelease(coralHold, Constants.CoralHoldCon.RELEASE_SPEED);
+  //CoralHold
+  private final CoralManualHold coralHoldPull = new CoralManualHold(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
+  private final CoralRelease coralHoldRelease = new CoralRelease(coralHold, Constants.CoralHoldCon.RELEASE_SPEED);
 
-  private final CoralHoldWithCounter counterCoralHold = new CoralHoldWithCounter(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
+  private final CoralHoldWithCounter coralHoldCounter = new CoralHoldWithCounter(coralHold, Constants.CoralHoldCon.HOLD_SPEED);
+  private final CoralRelease coralHoldReleaseL4 = new CoralRelease(coralHold, Constants.CoralHoldCon.L4_RELEASE_SPEED);
 
-    //level 4 release has a positive speed, not negative. the motor will spin in the same direction as if it is Hold
-  private final CoralRelease coralReleaseL4 = new CoralRelease(coralHold, Constants.CoralHoldCon.L4_RELEASE_SPEED);
+  //CoralPivot
+
+
+
+
+
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -83,18 +94,13 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+    //Buttons
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-
+    //Main Xbox Controller
     JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
     JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B);
     JoystickButton y = new JoystickButton(driverController, Constants.XboxController.Y);
     JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
-    JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
-    JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B);
-    JoystickButton y = new JoystickButton(driverController, Constants.XboxController.Y);
     JoystickButton lb = new JoystickButton(driverController, Constants.XboxController.LB);
     JoystickButton rb = new JoystickButton(driverController, Constants.XboxController.RB);
     JoystickButton lm = new JoystickButton(driverController, Constants.XboxController.LM);
@@ -105,7 +111,8 @@ public class RobotContainer {
     POVButton downPov = new POVButton(driverController,Constants.XboxController.POVXbox.DOWN_ANGLE); 
     POVButton leftPov = new POVButton(driverController,Constants.XboxController.POVXbox.LEFT_ANGLE);
     POVButton rightPov = new POVButton(driverController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
-    // XBOX CONTROLLER - AUX CONTROLLER
+    
+    //Secondary Xbox Controller
     JoystickButton x1 = new JoystickButton(auxController, Constants.XboxController.X);
     JoystickButton a1 = new JoystickButton(auxController, Constants.XboxController.A);
     JoystickButton b1 = new JoystickButton(auxController, Constants.XboxController.B);
@@ -121,29 +128,9 @@ public class RobotContainer {
     POVButton leftPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.LEFT_ANGLE);
     POVButton rightPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
 
-    // ALL BUTTONS BELOW ARE PLACEHOLDER
+    //Inputs
 
-    // ELEVATOR - zero manually before PID
-    upPov.whileTrue(manualUp);
-    downPov.whileTrue(manualDown);
-
-    a.onTrue(PIDtoL1); // 6 in
-    b.onTrue(PIDtoL2); // 12 in
-    x.onTrue(PIDtoL3); // 18 in
-
-    // ALGAE HOLD 
-
-    x1.whileTrue(manualAlgaeHold);
-    y1.whileTrue(manualAlgaeRelease);
-
-    // CORAL HOLD
-
-    rightPov.whileTrue(manualCoralHold);
-    leftPov.whileTrue(coralRelease);
-    rb.whileTrue(counterCoralHold);
-    lb.whileTrue(coralRelease);
-    lm.whileTrue(coralReleaseL4);
-
+    a.whileTrue(coralHoldPull);
 
   }
 

@@ -20,18 +20,19 @@ public final class Constants {
 
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
-    // Elevator (placeholder)
+
+    //Elevator (placeholder)
     public static final int ID_ELEVATOR_LEFT = 46;
     public static final int ID_ELEVATOR_RIGHT = 47;
 
-    // Algae Hold (placeholder)
+    //AlgaeHold (placeholder)
     public static final int ID_ALGAE_HOLD = 49;
-    // CoralHold (placeholder)
 
-    // Talon SRX (testing)
+    //AlgaePivot (placeholder)
+    public static final int ID_ALGAE_PIVOT = 50;
+
+    //CoralHold (placeholder)
     public static final int ID_CORALMOTORSRX = 14;
-
-    // SparkMax
     public static final int ID_CORALMOTOR = 48;
   }
 
@@ -79,7 +80,6 @@ public final class Constants {
     public static final double KI = 0;
     public static final double KD = 0;
     public static final double KFF = 0;
-    //public static final double ENC_CONVERSION_FACTOR = 1; //unnecessary for now but may make it easier to change values with real world units
   }
   
   public static class XboxController {
