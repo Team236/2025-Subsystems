@@ -50,14 +50,14 @@ public class CoralPivot extends SubsystemBase {
       CoralExtLimit = new DigitalInput(Constants.CoralPivot.DIO_CORAL_PIVOT_EXT_LIMIT);
     } catch (Exception e) {
        isCoralPivotExtException = true;
-      SmartDashboard.putBoolean("exception thrown for Coral top limit: ", isCoralPivotExtException);
+      SmartDashboard.putBoolean("exception thrown for Coral Extend limit: ", isCoralPivotExtException);
     }
     try {
       //  This sets a bottom limit for the coral, and if it fails, throws an error
       CoralRetLimit = new DigitalInput(Constants.CoralPivot.DIO_CORAL_PIVOT_RET_LIMIT);
     } catch (Exception e) {
       isCoralPivotRetException = true;
-      SmartDashboard.putBoolean("exception thrown for Coral bottom limit: ", isCoralPivotRetException);
+      SmartDashboard.putBoolean("exception thrown for Coral Retract limit: ", isCoralPivotRetException);
     }
 }
 
@@ -74,6 +74,9 @@ public void stopCoralPivot() {
 coralPivotMotor.set(0);
 }
 
+public double getCoralPivotSpeed() {
+  return coralPivotMotor.get();
+}
 public boolean isCoralExtLimit() {
 if (isCoralPivotExtException) {
   return true;
@@ -89,14 +92,11 @@ if (isCoralPivotRetException) {
   return CoralRetLimit.get();
 }
 }
+
 public boolean isFullyExtended() {
-  boolean aFullExtend;
-  if (getCoralEncoder() <= Constants.CoralPivot.CORAL_ENC_REVS_MAX) {  //WAS >=
-    aFullExtend = true;
-  } else {
-    aFullExtend = false;      }
-  return aFullExtend;
+  return (getCoralEncoder() <= Constants.CoralPivot.CORAL_ENC_REVS_MAX);
 }
+
 public void setCoralPivotSpeed(double speed) {
   if (speed <= 0) {  //was >0 but changed since going negative when extending now
      //TODO make sure elevator speed > 0 when going up
@@ -120,9 +120,7 @@ public void setCoralPivotSpeed(double speed) {
      }
 }
 
-public double getCoralPivotSpeed() {
-  return coralPivotMotor.get();
-}
+
 
 //Begin things that may not be relevant
 //these are things that might be useful in the future if we use CANSparkMax PID
