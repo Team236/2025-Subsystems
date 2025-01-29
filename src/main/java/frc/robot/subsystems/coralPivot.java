@@ -32,23 +32,19 @@ public class CoralPivot extends SubsystemBase {
   private SparkMax coralPivotMotor;
   private SparkBaseConfig coralPivotConfig;
   private RelativeEncoder coralPivotEncoder;
-  //this is copied from the 2024 code, this may not be relevant
-  //SWITCHED TO WPILib PID, not SPARKMAX PID
-  //private SparkPIDController tiltPIDController;
   private boolean isCoralPivotExtException, isCoralPivotRetException;
   private DigitalInput CoralExtLimit, CoralRetLimit;
-  private SparkClosedLoopController coralPivotPIDController;
-
+ 
 
     /** Creates a new CoralPivot. */
     public CoralPivot() {
     coralPivotMotor = new SparkMax(Constants.CoralPivot.CORALPIVOTMOTOR, MotorType.kBrushless);
-            
+    coralPivotEncoder = coralPivotMotor.getEncoder(); 
+
     coralPivotConfig.inverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
     coralPivotConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-    coralPivotEncoder = coralPivotMotor.getEncoder();
     coralPivotMotor.configure(coralPivotConfig,SparkBase.ResetMode.kResetSafeParameters ,SparkBase.PersistMode.kPersistParameters);
-    
+        
     try {
       //  This tries to make a new digital input, and if it fails, throws an error 
       CoralExtLimit = new DigitalInput(Constants.CoralPivot.DIO_CORAL_PIVOT_EXT_LIMIT);
@@ -63,9 +59,8 @@ public class CoralPivot extends SubsystemBase {
       isCoralPivotRetException = true;
       SmartDashboard.putBoolean("exception thrown for Coral bottom limit: ", isCoralPivotRetException);
     }
-    coralPivotPIDController = coralPivotMotor.getClosedLoopController();
-    //TODO set target and other PID values
 }
+
 // methods start here
 public double getCoralEncoder() {  //gives encoder reading in Revs
   return coralPivotEncoder.getPosition();

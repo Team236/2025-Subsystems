@@ -41,33 +41,30 @@ public final class Constants {
     public static final double HOLD_SPEED = .1;
     public static final double RELEASE_SPEED = -.1;
     public static final double L4_RELEASE_SPEED = .1;
-      
-  
-    // target position values for PID
-    public static final double PIVOT_STOWED_POSITION=0; //TODO find actual encoder rotation values
-    public static final double PIVOT_LEVEL1_POSITION=5; //TODO find actual encoder rotation values
-    public static final double PIVOT_LEVEL2_POSITION=5; //TODO find actual encoder rotation values
-    public static final double PIVOT_LEVEL3_POSITION=5; //TODO find actual encoder rotation values
-    public static final double PIVOT_LEVEL4_POSITION=10; //TODO find actual encoder rotation values
-    public static final int PIVOT_MOTOR = 0;
-    public static final int DIO_CORAL_PIVOT_EXT_LIMIT = 0; //TODO find actual
-    public static final int DIO_CORAL_PIVOT_RET_LIMIT = 0; //TODO find actual
     public static final double CORAL_ENC_REVS_MAX = 0; //TODO find actual
 
   }
 public static class CoralPivot {
 
-public static final double DIO_CORAL_PIVOT_RET_LIMIT = 0; //TODO find actual
-public static final double DIO_CORAL_PIVOT_EXT_LIMIT = 0; // TODO find actual
+public static final int DIO_CORAL_PIVOT_RET_LIMIT = 0; //TODO find actual
+public static final int DIO_CORAL_PIVOT_EXT_LIMIT = 0; // TODO find actual
 public static final double CORAL_ENC_REVS_MAX = 0; // TODO find actual
 public static final double HOLD_SPEED = 0; // TODO find actual
 public static final double CORAL_PIVOT_UP_SPEED = .1; // find actual 
 public static final double CORAL_PIVOT_DOWN_SPEED = -.1;
 
+  // target position values for PID
+    public static final double PIVOT_STOWED_POSITION=0; //TODO find actual encoder rotation values
+    public static final double PIVOT_LEVEL1_POSITION=5; //TODO find actual encoder rotation values
+    public static final double PIVOT_LEVEL2_POSITION=5; //TODO find actual encoder rotation values
+    public static final double PIVOT_LEVEL3_POSITION=5; //TODO find actual encoder rotation values
+    public static final double PIVOT_LEVEL4_POSITION=10; //TODO find actual encoder rotation values
+
   //placeholder PID values supporting PID for subsystem
     public static final double Kp_CORALPIVOT = 0.002;   //TODO tune PID values
     public static final double Ki_CORALPIVOT = 0;   
     public static final double Kd_CORALPIVOT = 0;
+	  public static final int CORALPIVOTMOTOR = 41;
 
 }
   public static class Elevator {
