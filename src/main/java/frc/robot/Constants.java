@@ -24,7 +24,7 @@ public final class Constants {
     public static final int ID_ELEVATOR_LEFT = 46;
     public static final int ID_ELEVATOR_RIGHT = 47;
     // CoralHold (placeholder)
-    public static final int ID_CORALMOTOR = 48;
+    public static final int ID_CORALMOTOR = 49;
   }
 
   public static class CoralHoldCon {
