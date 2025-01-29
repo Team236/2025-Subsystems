@@ -123,7 +123,7 @@ public class RobotContainer {
     b.onTrue(PIDtoL2); // 12 in
     x.onTrue(PIDtoL3); // 18 in
 
-    // ALGAE HOLD 
+    // ALGAE hold 
 
     x1.whileTrue(manualAlgaeHold);
     y1.whileTrue(manualAlgaeRelease);
