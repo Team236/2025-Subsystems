@@ -28,6 +28,8 @@ public class AlgaePivot extends SubsystemBase {
 
   private RelativeEncoder algaePivotEncoder;
 
+  private boolean hasResetPivotEncoder;
+
   //private SparkClosedLoopController algaeClosedLoopController;
 
   public AlgaePivot() {
@@ -49,6 +51,8 @@ public class AlgaePivot extends SubsystemBase {
 
     //SmartDashboard.setDefaultBoolean("Algae Exterior Digital Input threw an exception", false);
     //SmartDashboard.setDefaultBoolean("Algae Retracted Digital Input threw an exception", false);
+
+    hasResetPivotEncoder = false;
 
     try {
       algaeExtLimit = new DigitalInput(Constants.AlgaePivot.DIO_EXT_LIMIT);
@@ -161,6 +165,7 @@ public class AlgaePivot extends SubsystemBase {
   public void resetPivotEncoder()
   {
     algaePivotEncoder.setPosition(0);
+    hasResetPivotEncoder = true;
   }
 
   public double getPivotEncoder()
@@ -185,5 +190,6 @@ public class AlgaePivot extends SubsystemBase {
     SmartDashboard.putBoolean("Algae Pivot hit retracted limit", isRetLimit());
     SmartDashboard.putBoolean("Algae Pivot is fully extended", isFullyExtended());
     SmartDashboard.putNumber("Algae Pivot encoder revolutions", getPivotEncoder());
+    SmartDashboard.putBoolean("Algae Pivot PID controls ready to use: ", hasResetPivotEncoder);
   }
 }
