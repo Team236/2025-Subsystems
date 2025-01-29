@@ -61,6 +61,8 @@ public static final double DIO_CORAL_PIVOT_RET_LIMIT = 0; //TODO find actual
 public static final double DIO_CORAL_PIVOT_EXT_LIMIT = 0; // TODO find actual
 public static final double CORAL_ENC_REVS_MAX = 0; // TODO find actual
 public static final double HOLD_SPEED = 0; // TODO find actual
+public static final double CORAL_PIVOT_UP_SPEED = .1;
+public static final double CORAL_PIVOT_DOWN_SPEED = -.1;
 
   //placeholder PID values supporting PID for subsystem
     public static final double Kp_CORALPIVOT = 0.002;   //TODO tune PID values
