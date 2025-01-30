@@ -30,7 +30,7 @@ public final class Constants {
 
    //CoralHold (placeholder)
     // public static final int ID_CORAL_HOLD_MOTORSRX = 14; //IF USE TALON SRX
-    public static final int ID_CORAL_HOLD_MOTOR = 34;//BRUSHED SM MOTOR
+    public static final int ID_CORAL_HOLD_MOTOR = 49;//34;//BRUSHED SM MOTOR
 
     //AlgaePivot (placeholder)
     public static final int ID_ALGAE_PIVOT = 500;//Change to 50 when test algaehold
