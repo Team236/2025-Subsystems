@@ -24,6 +24,10 @@ public final class Constants {
     //Elevator (placeholder)
     public static final int ID_ELEVATOR_LEFT = 46;
     public static final int ID_ELEVATOR_RIGHT = 47;
+    
+    public static final int ID_ELEVATOR_LEFT_TALON = 10;
+    public static final int ID_ELEVATOR_RIGHT_TALON = 11;
+    
 
     //AlgaeHold (placeholder)
     public static final int ID_ALGAE_HOLD = 49;

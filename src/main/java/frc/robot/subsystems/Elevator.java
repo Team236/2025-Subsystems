@@ -5,6 +5,13 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants;
+
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.TalonFXConfigurator;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -18,35 +25,64 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
-  private SparkMax leftElevatorMotor, rightElevatorMotor;
-  private SparkMaxConfig leftConfig, rightConfig;
 
-  public RelativeEncoder leftElevEncoder, rightElevEncoder;
+  // // SPARK MAX
+  // private SparkMax leftElevatorMotor, rightElevatorMotor;
+  // private SparkMaxConfig leftConfig, rightConfig;
+  // public RelativeEncoder leftElevEncoder, rightElevEncoder;
+
+  // TALON FX
+  private TalonFX leftElevatorMotor, rightElevatorMotor;
+  private TalonFXConfigurator leftConfig, rightConfig;
 
   private DigitalInput elevatorTopLimit, elevatorBottomLimit;
   private boolean isTException, isBException;
 
   public Elevator() {
-    leftElevatorMotor = new SparkMax(Constants.MotorControllers.ID_ELEVATOR_LEFT, MotorType.kBrushless);
-    rightElevatorMotor = new SparkMax(Constants.MotorControllers.ID_ELEVATOR_RIGHT, MotorType.kBrushless);
+    // // SPARK MAX
 
-   // leftElevatorMotor.configure(leftConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-    //rightElevatorMotor.configure(rightConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    // leftElevatorMotor = new SparkMax(Constants.MotorControllers.ID_ELEVATOR_LEFT, MotorType.kBrushless);
+    // rightElevatorMotor = new SparkMax(Constants.MotorControllers.ID_ELEVATOR_RIGHT, MotorType.kBrushless);
 
-    // configure motors
-    leftConfig = new SparkMaxConfig();
-    leftConfig.inverted(true);
-    leftConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    // // configure motors
+    // leftConfig = new SparkMaxConfig();
+    // leftConfig.inverted(true);
+    // leftConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
 
-    rightConfig = new SparkMaxConfig();
-    rightConfig.inverted(false);
-    rightConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    // rightConfig = new SparkMaxConfig();
+    // rightConfig.inverted(false);
+    // rightConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
 
-    leftElevatorMotor.configure(leftConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-    rightElevatorMotor.configure(rightConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    // leftElevatorMotor.configure(leftConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    // rightElevatorMotor.configure(rightConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
 
-    leftElevEncoder = leftElevatorMotor.getEncoder();
-    rightElevEncoder = rightElevatorMotor.getEncoder();
+    // leftElevEncoder = leftElevatorMotor.getEncoder();
+    // rightElevEncoder = rightElevatorMotor.getEncoder();
+    
+    // TALON FX
+    leftElevatorMotor = new TalonFX(Constants.MotorControllers.ID_ELEVATOR_LEFT_TALON);
+    rightElevatorMotor = new TalonFX(Constants.MotorControllers.ID_ELEVATOR_RIGHT_TALON);
+    
+    leftConfig = leftElevatorMotor.getConfigurator();
+    
+    var leftCurrentConfigs = new CurrentLimitsConfigs();
+    leftCurrentConfigs.StatorCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
+    var leftOutputConfigs = new MotorOutputConfigs();
+    leftOutputConfigs.Inverted = InvertedValue.Clockwise_Positive;
+
+    leftConfig.apply(leftCurrentConfigs);
+    leftConfig.apply(leftOutputConfigs);
+
+
+    rightConfig = rightElevatorMotor.getConfigurator();
+    
+    var rightCurrentConfigs = new CurrentLimitsConfigs();
+    rightCurrentConfigs.StatorCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
+    var rightOutputConfigs = new MotorOutputConfigs();
+    rightOutputConfigs.Inverted = InvertedValue.CounterClockwise_Positive;
+    
+    rightConfig.apply(rightCurrentConfigs);
+    rightConfig.apply(rightOutputConfigs);
 
     try {
       elevatorTopLimit = new DigitalInput(Constants.Elevator.DIO_ELEV_TOP);
@@ -85,8 +121,12 @@ public class Elevator extends SubsystemBase {
 
   // reset/zero encoders
   public void resetElevatorEncoders(){
-    leftElevEncoder.setPosition(0);
-    rightElevEncoder.setPosition(0);
+    // // SPARK MAX
+    // leftElevEncoder.setPosition(0);
+    // rightElevEncoder.setPosition(0);
+
+    // TALON FX
+
   }
 
   //returns encoder position in REVOLUTIONS (number of rotations)
