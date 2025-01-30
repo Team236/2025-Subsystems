@@ -75,8 +75,8 @@ public static class CoralHold {
 }
 
   public static class AlgaePivot {
-    public static final int DIO_EXT_LIMIT = 80; //change to 8 when test AlgaePivot
-    public static final int DIO_RET_LIMIT = 90; //change to 9 when test AlgaePivot
+    public static final int DIO_EXT_LIMIT = 8; //change to 8 when test AlgaePivot
+    public static final int DIO_RET_LIMIT = 9; //change to 9 when test AlgaePivot
     public static final double ENC_REVS_MAX = -74;
     public static final double ENC_REVS_TEST1 = -30;
     public static final double ENC_REVS_TEST2 = -52;
@@ -89,8 +89,8 @@ public static class CoralHold {
   }
   
   public static class CoralPivot {
-    public static final int DIO_EXT_LIMIT = 8;
-    public static final int DIO_RET_LIMIT = 9;
+    public static final int DIO_EXT_LIMIT = 8; //change to 8 when test AlgaePivot
+    public static final int DIO_RET_LIMIT = 9; //change to 9 when test AlgaePivot
     public static final double ENC_REVS_MAX = -74;
     public static final double ENC_REVS_TEST1 = -30;
     public static final double ENC_REVS_TEST2 = -52;
