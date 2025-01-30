@@ -17,6 +17,8 @@ import frc.robot.commands.AlgaePivotCommands.PIDAlgaePivot;
 import frc.robot.commands.CoralHoldCommands.CoralGrabWithCounter;
 import frc.robot.commands.CoralHoldCommands.CoralGrab;
 import frc.robot.commands.CoralHoldCommands.CoralRelease;
+import frc.robot.commands.CoralPivotCommands.ManualCoralPivot;
+import frc.robot.commands.CoralPivotCommands.PIDCoralPivot;
 import frc.robot.commands.ElevatorCommands.ManualUpDown;
 import frc.robot.commands.ElevatorCommands.PIDToHeight;
 import frc.robot.subsystems.AlgaeHold;
@@ -42,6 +44,7 @@ public class RobotContainer {
   private final AlgaePivot algaePivot = new AlgaePivot();
   private final Elevator elevator = new Elevator();
   private final CoralHold coralHold = new CoralHold();
+  private final coralPivot coralPivot = new coralPivot();
 
   //Commmands - Any pid commands put pid at the beginning, then put the subsystem, then put the action :)
 
@@ -71,6 +74,10 @@ public class RobotContainer {
   private final CoralRelease coralReleaseL4 = new CoralRelease(coralHold, Constants.CoralHold.L4_RELEASE_SPEED);
 
   //CoralPivot
+  private final ManualCoralPivot coralPivotDown = new ManualCoralPivot(coralPivot, Constants.CoralPivot.MAN_EXT_SPEED);
+  private final ManualCoralPivot coralPivotUp = new ManualCoralPivot(coralPivot, Constants.CoralPivot.MAN_RET_SPEED);
+  private final PIDCoralPivot pidCoralPivot1 = new PIDCoralPivot(coralPivot, Constants.CoralPivot.ENC_REVS_TEST1);
+  private final PIDCoralPivot pidCoralPivot2 = new PIDCoralPivot(coralPivot, Constants.CoralPivot.ENC_REVS_TEST2);
 
 
 
@@ -130,23 +137,32 @@ public class RobotContainer {
 
     //Inputs
 
-    lb.whileTrue(elevatorDown);
-    lm.whileTrue(elevatorUp);
+    //lb.whileTrue(elevatorDown);
+    //lm.whileTrue(elevatorUp);
+//
+    //rb.whileTrue(algaePivotUp);
+    //rm.whileTrue(algaePivotDown);
+//
+    //x.onTrue(pidAlgaePivot1);
+    //y.onTrue(pidAlgaePivot2);
+//
+    //downPov.onTrue(pidElevatorL1);
+    //leftPov.onTrue(pidElevatorL2);
+    //upPov.onTrue(pidElevatorL3);
+//
+    //a.whileTrue(coralGrab);
+    //b.whileTrue(coralRelease);
+    //leftPov.whileTrue(coralGrabWithCounter);
+    //rightPov.whileTrue(coralReleaseL4);
 
-    rb.whileTrue(algaePivotUp);
-    rm.whileTrue(algaePivotDown);
+    upPov.whileTrue(coralPivotUp);
+    downPov.whileTrue(coralPivotDown);
+    a.onTrue(pidCoralPivot1);
+    b.onTrue(pidCoralPivot2);
 
-    x.onTrue(pidAlgaePivot1);
-    y.onTrue(pidAlgaePivot2);
 
-    downPov.onTrue(pidElevatorL1);
-    leftPov.onTrue(pidElevatorL2);
-    upPov.onTrue(pidElevatorL3);
 
-    a.whileTrue(coralGrab);
-    b.whileTrue(coralRelease);
-    leftPov.whileTrue(coralGrabWithCounter);
-    rightPov.whileTrue(coralReleaseL4);
+    
   }
 
 

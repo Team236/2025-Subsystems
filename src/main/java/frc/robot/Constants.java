@@ -20,7 +20,6 @@ public final class Constants {
 
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
-
     //Elevator (placeholder)
     public static final int ID_ELEVATOR_LEFT = 46;
     public static final int ID_ELEVATOR_RIGHT = 47;
@@ -33,10 +32,10 @@ public final class Constants {
     public static final int ID_CORAL_HOLD_MOTOR = 34;//BRUSHED SM MOTOR
 
     //AlgaePivot (placeholder)
-    public static final int ID_ALGAE_PIVOT = 500;//Change to 50 when test algaehold
+    public static final int ID_ALGAE_PIVOT = 50;//Change to 50 when test algaehold
 
      //CoralPivot (placeholder)
-     public static final int ID_CORAL_PIVOT = 50;
+     public static final int ID_CORAL_PIVOT = 500;
   }
 
   public static class Elevator {
