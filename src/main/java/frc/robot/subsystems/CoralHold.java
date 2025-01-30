@@ -45,7 +45,7 @@ public class CoralHold extends SubsystemBase {
     // // coralMotor.configAllSettings(coralConfig);
 
     // SPARK MAX
-    coralHoldMotor = new SparkMax(Constants.MotorControllers.ID_CORAL_HOLD_MOTOR , MotorType.kBrushless);
+    coralHoldMotor = new SparkMax(Constants.MotorControllers.ID_CORAL_HOLD_MOTOR , MotorType.kBrushed);
 
     coralHoldConfig = new SparkMaxConfig();
     coralHoldConfig.inverted(true);
