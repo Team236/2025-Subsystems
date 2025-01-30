@@ -139,7 +139,7 @@ public class RobotContainer {
     y.onTrue(pidAlgaePivot2);
 
     downPov.onTrue(pidElevatorL1);
-    leftPov.onTrue(pidElevatorL2);
+    //leftPov.onTrue(pidElevatorL2);
     upPov.onTrue(pidElevatorL3);
 
     a.whileTrue(coralGrab);

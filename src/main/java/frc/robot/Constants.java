@@ -26,14 +26,14 @@ public final class Constants {
     public static final int ID_ELEVATOR_RIGHT = 47;
 
     //AlgaeHold (placeholder)
-    public static final int ID_ALGAE_HOLD = 49;
+    public static final int ID_ALGAE_HOLD = 60;
 
    //CoralHold (placeholder)
     // public static final int ID_CORAL_HOLD_MOTORSRX = 14; //IF USE TALON SRX
-    public static final int ID_CORAL_HOLD_MOTOR = 34;//BRUSHED SM MOTOR
+    public static final int ID_CORAL_HOLD_MOTOR = 49;//BRUSHED SM MOTOR
 
     //AlgaePivot (placeholder)
-    public static final int ID_ALGAE_PIVOT = 500;//Change to 50 when test algaehold
+    public static final int ID_ALGAE_PIVOT = 61;//Change to 50 when test algaehold
 
      //CoralPivot (placeholder)
      public static final int ID_CORAL_PIVOT = 50;
