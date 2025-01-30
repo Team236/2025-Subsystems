@@ -29,13 +29,13 @@ public final class Constants {
 
    //CoralHold (placeholder)
     // public static final int ID_CORAL_HOLD_MOTORSRX = 14; //IF USE TALON SRX
-    public static final int ID_CORAL_HOLD_MOTOR = 34;//BRUSHED SM MOTOR
+    public static final int ID_CORAL_HOLD_MOTOR = 61;//chang e to BRUSHED SM MOTOR
 
     //AlgaePivot (placeholder)
-    public static final int ID_ALGAE_PIVOT = 50;//Change to 50 when test algaehold
+    public static final int ID_ALGAE_PIVOT = 60;//Change to 50 when test algaehold
 
      //CoralPivot (placeholder)
-     public static final int ID_CORAL_PIVOT = 500;
+     public static final int ID_CORAL_PIVOT = 50;
   }
 
   public static class Elevator {
@@ -75,8 +75,8 @@ public static class CoralHold {
 }
 
   public static class AlgaePivot {
-    public static final int DIO_EXT_LIMIT = 8; //change to 8 when test AlgaePivot
-    public static final int DIO_RET_LIMIT = 9; //change to 9 when test AlgaePivot
+    public static final int DIO_EXT_LIMIT = 1; //change to 8 when test AlgaePivot
+    public static final int DIO_RET_LIMIT = 2; //change to 9 when test AlgaePivot
     public static final double ENC_REVS_MAX = -74;
     public static final double ENC_REVS_TEST1 = -30;
     public static final double ENC_REVS_TEST2 = -52;

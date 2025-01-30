@@ -41,6 +41,8 @@ public class coralPivot extends SubsystemBase {
     coralPivotMotor = new SparkMax(Constants.MotorControllers.ID_CORAL_PIVOT, MotorType.kBrushless);
     coralPivotEncoder = coralPivotMotor.getEncoder(); 
 
+    coralPivotConfig = new SparkMaxConfig();
+
     coralPivotConfig.inverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
     coralPivotConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     coralPivotMotor.configure(coralPivotConfig,SparkBase.ResetMode.kResetSafeParameters ,SparkBase.PersistMode.kPersistParameters);
