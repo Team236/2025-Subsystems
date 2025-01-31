@@ -100,6 +100,8 @@ public static class CoralHold {
     public static final double KI = 0;
     public static final double KD = 0;
     public static final double KFF = 0;
+    public static final int DIO_ENC_A = 0; //TODO change
+    public static final int DIO_ENC_B = 0; //TODO change
   }
   
   public static class XboxController {

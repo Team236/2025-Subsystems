@@ -16,6 +16,7 @@ import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -31,15 +32,15 @@ public class coralPivot extends SubsystemBase {
   
   private SparkMax coralPivotMotor;
   private SparkBaseConfig coralPivotConfig;
-  private RelativeEncoder coralPivotEncoder;
+  private Encoder coralPivotEncoder;
   private boolean isCoralPivotExtException, isCoralPivotRetException;
   private DigitalInput CoralExtLimit, CoralRetLimit;
  
 
     /** Creates a new CoralPivot. */
     public coralPivot() {
-    coralPivotMotor = new SparkMax(Constants.MotorControllers.ID_CORAL_PIVOT, MotorType.kBrushless);
-    coralPivotEncoder = coralPivotMotor.getEncoder(); 
+    coralPivotMotor = new SparkMax(Constants.MotorControllers.ID_CORAL_PIVOT, MotorType.kBrushed);
+    coralPivotEncoder = new Encoder(Constants.CoralPivot.DIO_ENC_A, Constants.CoralPivot.DIO_ENC_B);
 
     coralPivotConfig.inverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
     coralPivotConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
@@ -63,11 +64,11 @@ public class coralPivot extends SubsystemBase {
 
 // methods start here
 public double getCoralEncoder() {  //gives encoder reading in Revs
-  return coralPivotEncoder.getPosition();
+  return coralPivotEncoder.getRaw();
 }
 
 public void resetCoralEncoder() {
-  coralPivotEncoder.setPosition(0);
+  coralPivotEncoder.reset();
 }
 
 public void stopCoralPivot() {
