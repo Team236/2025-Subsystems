@@ -169,6 +169,9 @@ public class Elevator extends SubsystemBase {
   // TALON FX
   private TalonFX leftElevatorMotor, rightElevatorMotor;
   private TalonFXConfigurator leftConfig, rightConfig;
+  //EDC ADDED ON 2/24:
+  private CurrentLimitsConfigs leftCurrentConfigs, rightCurrentConfigs;
+  private MotorOutputConfigs leftOutputConfigs, rightOutputConfigs;
 
   private DigitalInput elevatorTopLimit, elevatorBottomLimit;
   private boolean isTException, isBException;
@@ -179,11 +182,12 @@ public class Elevator extends SubsystemBase {
     rightElevatorMotor = new TalonFX(Constants.MotorControllers.ID_ELEVATOR_RIGHT_TALON);
     
     leftConfig = leftElevatorMotor.getConfigurator();
-    
-    var leftCurrentConfigs = new CurrentLimitsConfigs();
+    //EDC removed the term "var" before left and right CurrentConfigs/left and right outputConfigs
+    leftCurrentConfigs = new CurrentLimitsConfigs();
+    leftCurrentConfigs.StatorCurrentLimitEnable = true;
     leftCurrentConfigs.StatorCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
-    var leftOutputConfigs = new MotorOutputConfigs();
-    leftOutputConfigs.Inverted = InvertedValue.Clockwise_Positive;
+    leftOutputConfigs = new MotorOutputConfigs();
+    leftOutputConfigs.Inverted = InvertedValue.Clockwise_Positive;//TODO:  Make both clockwise or both CCW for 2025 robot
 
     leftConfig.apply(leftCurrentConfigs);
     leftConfig.apply(leftOutputConfigs);
@@ -191,10 +195,11 @@ public class Elevator extends SubsystemBase {
 
     rightConfig = rightElevatorMotor.getConfigurator();
     
-    var rightCurrentConfigs = new CurrentLimitsConfigs();
+    rightCurrentConfigs = new CurrentLimitsConfigs();
+    leftCurrentConfigs.StatorCurrentLimitEnable = true;
     rightCurrentConfigs.StatorCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
-    var rightOutputConfigs = new MotorOutputConfigs();
-    rightOutputConfigs.Inverted = InvertedValue.CounterClockwise_Positive;
+    rightOutputConfigs = new MotorOutputConfigs();
+    rightOutputConfigs.Inverted = InvertedValue.CounterClockwise_Positive; //TODO:  Make both clockwise or both CCW for 2025 robot
     
     rightConfig.apply(rightCurrentConfigs);
     rightConfig.apply(rightOutputConfigs);
@@ -243,12 +248,14 @@ public class Elevator extends SubsystemBase {
 
   //returns encoder position in REVOLUTIONS (number of rotations)
   public double getElevLeftEncoder() {
-    StatusSignal<Angle> revs = leftElevatorMotor.getPosition();
-    return revs.getValueAsDouble();
+   // StatusSignal<Angle> revs = leftElevatorMotor.getPosition();
+   // return revs.getValueAsDouble();
+   return leftElevatorMotor.getPosition().getValueAsDouble();
   }
   public double getElevRightEncoder() {
-    StatusSignal<Angle> revs = rightElevatorMotor.getPosition();
-    return revs.getValueAsDouble();
+   // StatusSignal<Angle> revs = rightElevatorMotor.getPosition();
+    //return revs.getValueAsDouble();
+    return rightElevatorMotor.getPosition().getValueAsDouble();
   }
 
   // currently returns revolutions of encoders -- NOT CONVERTED TO IN.
